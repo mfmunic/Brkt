@@ -6,15 +6,21 @@ header {
 	width: 100%;
 	height: 50px;
 	background-color: blue;
+	display: flex;
+	align-items: center;
 }
 
 h1 {
 	margin: 0 0;
 }
 
+.form-group {
+	margin: 0 auto;
+}
+
 .brktBox {
 	max-width: 90%;
-	height: calc(100vh - 50px);
+	/*height: calc(100vh - 50px);*/
 	background-color: gray;
 	margin: 0 auto;
 	display: flex;
@@ -22,19 +28,49 @@ h1 {
 }
 
 .brktCol {
-	height: calc(100% - 6px);
+	/*height: calc(100% - 6px);*/
 	min-width: 100px;
 	border: 3px solid yellow;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.pre-heat {
+	height: 100%;
+	display: block;
+}
+
+#preheatLeft{
+	border: 2px solid blue;
+	height: 50%;
+	width: 100%;
+	padding-top: calc(#rnd2.height/2);
+}
+
+#preheatRight{
+	border: 2px solid blue;
+	height: 50%;
+	width: 100%;
 }
 
 .conCol {
-	height: calc(100% - 6px);
+	/*height: calc(100% - 6px);*/
 	width: 20px;
 	border: 3px solid red;
 }
 
-.cont {
+/*.cont {
 	height: 20px;
 	width: 100%;
 	background-color: white;
+}*/
+
+.round {
+	background-color: white;
+	padding: 3px;
+}
+
+.players {
+	border: 1px solid black;
 }

@@ -1,48 +1,135 @@
-$(document).ready(function(){
-
+$("#createBtn").on("click", function (){
+	$(".brktBox").empty()
 	//number of contestants
-	//hardcoded for now
-	var nCont = 3;
-	console.log("original number = "+nCont);
+	var nCont = parseInt($("#noOfCont").val().trim());
 
+	var bracket = createBracketObject(nCont)
+	console.log(bracket)
+
+	//external from for loop to keep track of which round
+	var rndLoc = 0
+	// create bracket
+	for(i = 0; i<bracket.heatsTotal; i++){
+		//first if is for first heat and not adding column for svg
+		if (i == 0){
+			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
+			if(bracket.heats[0].preheat == true){
+				$("#heat0").addClass("pre-heat")
+				$("#heat0").append("<div id=preheatLeft></div>");
+				$("#heat0").append("<div id=preheatRight></div>");
+			}
+		} else {
+			//connector column
+			$(".brktBox").append("<div class=conCol id=con"+i+"></div>");
+			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
+		}
+
+		if(bracket.heats[i].preheat == true){
+
+			for (k = 0; k <bracket.heats[i].rndsLeft; k++){
+				$("#preheatLeft").append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
+
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
+
+				rndLoc++
+			}
+
+			for (m = 0; m <bracket.heats[i].rndsRight; m++){
+				$("#preheatRight").append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
+
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
+
+				rndLoc++
+			}
+
+		} else {
+			for (j = 0; j<bracket.heats[i].noOfRnds; j++){
+
+				$("#heat"+i).append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
+
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
+				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
+
+				rndLoc++
+			}
+		}
+	}
+})
+
+
+
+
+// -------------------------------------------------------------------------------------------------------------
+// Create an object that returns number of heats (columns), number of rounds, breaks down rounds and contestants
+//--------------------------------------------------------------------------------------------------------------
+
+function createBracketObject(contestants){
+
+	//brktInfo will be the object that is returned
+	var brktInfo = {
+		"total": contestants,
+		"heatsTotal": -1,
+		"roundsTotal": contestants-1,
+		"rounds" : [],
+		"heats": []
+	}
+
+	// main is the number of contestants for the first full heat
 	var main = 0;
-	var extra = 0;
-	var columns = -1;
 
-	for (a = 1; a <= nCont; a *= 2){
-		if (a * 2 <= nCont){
+	//extra is the number of contestants that need to qualify for the first full heat
+	var extra = 0;
+
+	//determine the number of heats (columns)
+	for (a = 1; a <= contestants; a *= 2){
+		if (a * 2 <= contestants){
 			main = a * 2;
 		} else {
-			extra = nCont - main
+			extra = contestants - main
 		}
-		columns++
+		brktInfo.heatsTotal++
 	}
 
 	if (extra > 0){
-		columns++
+		brktInfo.heatsTotal++
 	}
 
+	//mainColumn is the first full heat
+	//extra rounds will need to be played first to fill out the first heat
+	//the number of extra needs to pull from the main to fill out correctly
 	var mainColumn = main - extra
+
+	//blanks are the rounds in the first heat that require a winner from a pre-heat round
+	var blanks = extra
+
+	//extra needs to pull from main to have somebody to compete with
 	extra *= 2
 
-	console.log("main = "+main)
-	console.log("extra = "+extra)
-	console.log("columns = "+columns)
-	//number of extra contestants
+	//mainArr is total of each contestant for first heat
 	var mainArr = []
+
+	//1st and 2nd seats need to start on opposite branches
+	//1st seat starts on left
 	var mainArrLeft = []
+	//2nd seat starts on right
+	//determine later if actually display left and right 
 	var mainArrRight = []
+
+	// extArr is total for pre-heat
 	var extArr = []
 	var extArrLeft = []
 	var extArrRight = []
-	var blanks = 0
-	if (extra > 0){
-		blanks = extra/2
-	}
+
 	var blanksLeft = 0;
 	var blanksRight = 0;
-	console.log("blanks = "+blanks)
+	var extLoop = 0 
 
+	//reference for creating rounds
+	var totalPlayArr = [];
+
+	//fill out mainArr
 	for (b = 0; b < main; b++){
 
 		if (blanks > 0){
@@ -54,78 +141,171 @@ $(document).ready(function(){
 		}
 	}
 
-	console.log("Full Array = "+mainArr)
-	for (c = 0; c < mainArr.length; c++){
-		mainArrLeft.push(mainArr.shift());
-		if (mainArr[mainArr.length-1] == ""){
+	//move info from mainArr and seperate it into left and right arrays
+	var looplngth = mainArr.length/4
+
+	for (c = 0; c < looplngth; c++){
+		if (mainArr[0] == "") {
 			blanksLeft++
-			console.log("Blanks Left = "+blanksLeft)
 		}
+		if (mainArr[mainArr.length-1] == "") {
+			blanksLeft++
+		}
+		mainArrLeft.push(mainArr.shift());
 		mainArrLeft.push(mainArr.pop())
-		mainArrRight.push(mainArr.shift());
-		if (mainArr[mainArr.length-1] == ""){
+
+		if (mainArr[0] == "") {
 			blanksRight++
-			console.log("Blanks Right = "+blanksRight)
 		}
+		if (mainArr[mainArr.length-1] == "") {
+			blanksRight++
+		}
+		mainArrRight.push(mainArr.shift());
 		mainArrRight.push(mainArr.pop())
+
 	}
 
-	console.log("Left side = "+mainArrLeft)
-	console.log("Right Side = "+mainArrRight)
+	console.log(blanksLeft)
+	console.log(blanksRight)
 
+	// fill out extArr
 	for (d = 0; d < extra; d++){
-		extArr.unshift(nCont)
-		nCont--
+		extArr.unshift(contestants)
+		contestants--
+	}
+	
+
+	//move info from full extra array into left and right arrays
+	for (e = 0; e <= extra/4; e++){
+		if (extArr[0] != undefined){
+			extArrRight.push(extArr.shift())
+		}
+		if (extArr[extArr.length-1] != undefined){
+			extArrRight.push(extArr.pop())
+		}
+		if (extArr[0] != undefined){
+			extArrLeft.push(extArr.shift())
+		}
+		if (extArr[extArr.length-1] != undefined){
+			extArrLeft.push(extArr.pop())
+		}
 	}
 
-	console.log("Extra = "+extArr)
-
-	for (e = 0; e < blanksRight; e++){
-		extArrRight.push(extArr.shift())
-		extArrRight.push(extArr.pop())
+	console.log(extArrRight)
+	console.log(extArrLeft)
+	//series of for loops to build the total play array
+	for (i = 0; i < extArrLeft.length; i++){
+		totalPlayArr.push(extArrLeft[i])
+	}
+	
+	for (j = 0; j < extArrRight.length; j++){
+		totalPlayArr.push(extArrRight[j])
+	}
+	for (k = 0; k < mainArrLeft.length; k++){
+		totalPlayArr.push(mainArrLeft[k])
+	}
+	for (l = 0; l < mainArrRight.length; l++){
+		totalPlayArr.push(mainArrRight[l])
 	}
 
-	for (f = 0; f < blanksLeft; f++){
-		extArrLeft.push(extArr.shift())
-		extArrLeft.push(extArr.pop())
+	var tpal = totalPlayArr.length
+
+
+	//add more blanks to the total play array to reference winner position
+	for(g=0; g < brktInfo.roundsTotal*2-tpal; g++){
+		totalPlayArr.push("")
 	}
 
-	console.log("Left Extra = "+extArrLeft)
-	console.log("Right Extra = "+extArrRight)
+	tpal = totalPlayArr.length
 
-	//shift pop to create Rounds ---------------------------------------------------------------------------------------
-	//number of columns for connecting lines
-	var conCol = columns-1;
+	//divide array into rounds "" = reference to winner
+	var rndWin = 1;
+	var roundNo = 1;
+	for(h = 0; h<tpal; h += 2){
+		var player1 = ""
+		var player2 = ""
 
-	var totalCol = columns+conCol;
+		if (totalPlayArr[h] == ""){
+			player1 = "Winner of round "+rndWin;
+			rndWin++
+		} else {
+			player1 = totalPlayArr[h]
+		}
 
-	console.log("Total columns = "+totalCol)
-	//number of columns based on the number of contestants
-	// var nCol = Math.log(nCont)/Math.log(2)
+		if (totalPlayArr[h+1] == ""){
+			player2 = "Winner of round "+rndWin;
+			rndWin++
+		} else {
+			player2 = totalPlayArr[h+1]
+		}
 
-	//create columns
-	// for(i = 0; i<totalCol; i++){
-	// 	if (i > 0&&i%2 != 0){
-	// 		//column to hold SVG
-	// 		$(".brktBox").append("<div class=conCol id=rnd"+i+"></div>");
-	// 	} else {
-	// 		//column to hold contestants and rounds
-	// 		$(".brktBox").append("<div class=brktCol id=rnd"+i+"></div>");
-	// 		//for extra contestants beyond div by 4
-	// 		if (extCont > 0 && i == 0){
-	// 			for (h = 0; h<extCont; h++){
-	// 				$("#rnd"+i).append("<div class=cont>"+nCont+"</div>");
-	// 				nCont--;
-	// 			}
-	// 		} else {
-	// 			//start of regular bracket
-	// 			var curRnd = nCont
-	// 			for (j = 0; j<nCont; j++){
-	// 				$("#rnd"+i).append("<div class=cont>"+curRnd+"</div>");
-	// 				curRnd--
-	// 			}
-	// 			nCont = Math.floor(nCont/2)
-	// 		}
-	// 	}
-	// }
-})
+		var round = {
+			"round" : roundNo,
+			"player1" : player1,
+			"player2" : player2
+		}
+		brktInfo.rounds.push(round)
+		roundNo++;
+	}
+
+
+	//--------------------------------------------------------
+	//Generate heats array for bracket info
+	//---------------------------------------------------------
+	var heatNo = 1
+
+	//exclude if no extra heat should be played
+	if (extArrRight.length > 0){
+		var preHeatTotal = {
+			"heat" : heatNo,
+			"rndsLeft" : blanksLeft,
+			"rndsRight" : blanksRight,
+			"noOfRnds" : (extArrLeft.length/2) + (extArrRight.length/2),
+			"preheat" : true
+		}
+
+		heatNo++;
+		brktInfo.heats.push(preHeatTotal)
+	}
+
+	//------------------------------------------------------
+	//issue with 3 or 2
+	//main array right = " , "
+	//work around to keep from generating to many rounds per heat
+
+	var noMainRnds
+
+	if (mainArrRight[0] == undefined){
+		noMainRnds = (mainArrLeft.length/2)
+	} else {
+		noMainRnds = (mainArrLeft.length/2) + (mainArrRight.length/2)
+	}
+
+	//----------------------------------------------------------
+
+	var mainHeatTotal = {
+		"heat" : heatNo,
+		"noOfRnds" : noMainRnds,
+		"preheat" : false
+	}
+
+	brktInfo.heats.push(mainHeatTotal)
+	heatNo ++;
+
+	var restHeats = brktInfo.heatsTotal-brktInfo.heats.length
+
+	for (m = restHeats; m > 0 ; m--){
+		var noOfRnds = noMainRnds/2
+		var nextHeat = {
+			"heat" : heatNo,
+			"noOfRnds" : noOfRnds,
+			"preheat" : false
+		}
+
+		brktInfo.heats.push(nextHeat)
+		noMainRnds /= 2
+		heatNo++
+	}
+
+	return brktInfo
+}
