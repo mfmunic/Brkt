@@ -37,15 +37,17 @@ h1 {
 }
 
 .pre-heat {
-	height: 100%;
 	display: block;
 }
 
+.bigger {
+	height: 100%;
+}
 #preheatLeft{
 	border: 2px solid blue;
 	height: 50%;
 	width: 100%;
-	padding-top: calc(#rnd2.height/2);
+	padding-top: 40px;
 }
 
 #preheatRight{
@@ -69,8 +71,16 @@ h1 {
 .round {
 	background-color: white;
 	padding: 3px;
+	margin-top: 80px;
 }
 
+.pH {
+	margin-top: 85px;
+}
+
+.dblPH {
+	margin-top: 5px;
+}
 .players {
 	border: 1px solid black;
 }

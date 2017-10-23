@@ -1,3 +1,11 @@
+//Default testing to 31
+$(document).ready(function(){
+	var testNo = 31
+	var testBracket = createBracketObject(testNo)
+	console.log(testBracket)
+	createCol(testBracket)
+})
+
 $("#createBtn").on("click", function (){
 	$(".brktBox").empty()
 	//number of contestants
@@ -6,56 +14,7 @@ $("#createBtn").on("click", function (){
 	var bracket = createBracketObject(nCont)
 	console.log(bracket)
 
-	//external from for loop to keep track of which round
-	var rndLoc = 0
-	// create bracket
-	for(i = 0; i<bracket.heatsTotal; i++){
-		//first if is for first heat and not adding column for svg
-		if (i == 0){
-			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
-			if(bracket.heats[0].preheat == true){
-				$("#heat0").addClass("pre-heat")
-				$("#heat0").append("<div id=preheatLeft></div>");
-				$("#heat0").append("<div id=preheatRight></div>");
-			}
-		} else {
-			//connector column
-			$(".brktBox").append("<div class=conCol id=con"+i+"></div>");
-			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
-		}
-
-		if(bracket.heats[i].preheat == true){
-
-			for (k = 0; k <bracket.heats[i].rndsLeft; k++){
-				$("#preheatLeft").append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
-
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
-
-				rndLoc++
-			}
-
-			for (m = 0; m <bracket.heats[i].rndsRight; m++){
-				$("#preheatRight").append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
-
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
-
-				rndLoc++
-			}
-
-		} else {
-			for (j = 0; j<bracket.heats[i].noOfRnds; j++){
-
-				$("#heat"+i).append("<div class=round id=rnd"+bracket.rounds[rndLoc].round+">Round "+bracket.rounds[rndLoc].round+"</div>");
-
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player1-seat"+bracket.rounds[rndLoc].player1+">"+bracket.rounds[rndLoc].player1+"</div>");
-				$("#rnd"+bracket.rounds[rndLoc].round).append("<div class=players id=player2-seat"+bracket.rounds[rndLoc].player2+">"+bracket.rounds[rndLoc].player2+"</div>");
-
-				rndLoc++
-			}
-		}
-	}
+	createCol(bracket)
 })
 
 
@@ -141,6 +100,9 @@ function createBracketObject(contestants){
 		}
 	}
 
+	//save for creating rounds
+	//main player array length
+	var mpal = mainArr.length
 	//move info from mainArr and seperate it into left and right arrays
 	var looplngth = mainArr.length/4
 
@@ -165,15 +127,18 @@ function createBracketObject(contestants){
 
 	}
 
-	console.log(blanksLeft)
-	console.log(blanksRight)
-
 	// fill out extArr
 	for (d = 0; d < extra; d++){
 		extArr.unshift(contestants)
 		contestants--
 	}
 	
+	//save number of preheat for later use
+	//epal = extra player array length
+	var epal = extArr.length
+
+	//for help in creating first main line after a preheat
+	var opal = epal + mpal
 
 	//move info from full extra array into left and right arrays
 	for (e = 0; e <= extra/4; e++){
@@ -191,8 +156,6 @@ function createBracketObject(contestants){
 		}
 	}
 
-	console.log(extArrRight)
-	console.log(extArrLeft)
 	//series of for loops to build the total play array
 	for (i = 0; i < extArrLeft.length; i++){
 		totalPlayArr.push(extArrLeft[i])
@@ -217,16 +180,30 @@ function createBracketObject(contestants){
 	}
 
 	tpal = totalPlayArr.length
-
 	//divide array into rounds "" = reference to winner
 	var rndWin = 1;
 	var roundNo = 1;
 	for(h = 0; h<tpal; h += 2){
-		var player1 = ""
-		var player2 = ""
+		var player1 = "";
+		var player2 = "";
+		var preheatStatus = false;
+		var firstHeatStatus = false;
+		var double = false;
+		var p1wc
+		var p2wc
+
+		if (h < epal){
+			preheatStatus = true;
+		} else if (h >= epal && h < opal){
+			firstHeatStatus = true
+			if (totalPlayArr[h] === "" && totalPlayArr[h+1] === ""){
+				double = true;
+			}
+		}
 
 		if (totalPlayArr[h] == ""){
 			player1 = "Winner of round "+rndWin;
+			p1wc = rndWin
 			rndWin++
 		} else {
 			player1 = totalPlayArr[h]
@@ -234,6 +211,7 @@ function createBracketObject(contestants){
 
 		if (totalPlayArr[h+1] == ""){
 			player2 = "Winner of round "+rndWin;
+			p2wc = rndWin
 			rndWin++
 		} else {
 			player2 = totalPlayArr[h+1]
@@ -242,13 +220,28 @@ function createBracketObject(contestants){
 		var round = {
 			"round" : roundNo,
 			"player1" : player1,
-			"player2" : player2
+			"p1wc" : p1wc,
+			"player2" : player2,
+			"p2wc" : p2wc,
+			"preheat" : preheatStatus,
+			"firstheat" : firstHeatStatus,
+			"double" : double
 		}
+
 		brktInfo.rounds.push(round)
 		roundNo++;
 	}
 
+	//unbelievably complicated way of marking true for this one statue
+	//important for spacing in css
+	for (z = 0; z < brktInfo.rounds.length; z++){
+		if (brktInfo.rounds[z].firstheat == true && brktInfo.rounds[z].double == true){
+			//the -1 is to point it the correct position in the array
+			brktInfo.rounds[brktInfo.rounds[z].p1wc-1].double = true;
+			brktInfo.rounds[brktInfo.rounds[z].p2wc-1].double = true;
+		}
 
+	}
 	//--------------------------------------------------------
 	//Generate heats array for bracket info
 	//---------------------------------------------------------
@@ -308,4 +301,67 @@ function createBracketObject(contestants){
 	}
 
 	return brktInfo
+}
+
+
+
+
+//--------------------------------------------------------------------------------
+//Creates the columns formed in the html and css
+//-----------------------------------------------------------------------------------
+function createCol(bracket){
+	var rndLoc = 0
+	// create bracket
+	for(i = 0; i<bracket.heatsTotal; i++){
+		//first if is for first heat and not adding column for svg
+		if (i == 0){
+			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
+			if(bracket.heats[0].preheat == true){
+				$("#heat0").addClass("pre-heat")
+				//if pre heat is bigger than the first heat, it needs to determine the height of the column
+				if (bracket.heats[i].noOfRnds > bracket.heats[i+1].noOfRnds){
+					$("#heat0").addClass("bigger")
+				}
+
+				$("#heat0").append("<div id=preheatLeft></div>");
+				for (k = 0; k <bracket.heats[i].rndsLeft; k++){
+					createRnds(bracket.rounds[rndLoc], "preheatLeft", bracket.rounds[rndLoc].double == true ? true : false, true)
+					rndLoc++
+				}
+
+				$("#heat0").append("<div id=preheatRight></div>");
+
+				for (m = 0; m <bracket.heats[i].rndsRight; m++){
+					createRnds(bracket.rounds[rndLoc], "preheatRight", bracket.rounds[rndLoc].double == true ? true : false, true)
+					rndLoc++
+				}
+
+			}
+		} else {
+			//connector column
+			$(".brktBox").append("<div class=conCol id=con"+i+"></div>");
+			$(".brktBox").append("<div class=brktCol id=heat"+i+"></div>");
+			for (j = 0; j<bracket.heats[i].noOfRnds; j++){
+
+				createRnds(bracket.rounds[rndLoc], "heat"+i)
+				rndLoc++
+			}
+		}
+	}
+}
+
+function createRnds (round, column, dblChk, phChk){
+	var col = "#"+column
+
+	$(col).append("<div class=round id=rnd"+round.round+">Round "+round.round+"</div>");
+	if (phChk == true){
+		$("#rnd"+round.round).addClass("pH")
+	}
+	if (dblChk == true){
+		$("#rnd"+round.round).addClass("dblPH")
+	}
+
+	$("#rnd"+round.round).append("<div class=players id=player1-seat"+round.player1+">"+round.player1+"</div>");
+	$("#rnd"+round.round).append("<div class=players id=player2-seat"+round.player2+">"+round.player2+"</div>");
+
 }
