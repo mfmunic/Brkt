@@ -36,6 +36,16 @@ function createBracketImage(bracket){
 			$("#match"+bracket.heats[i].matches[j].matchNo).css("top", bracket.heats[i].matches[j].yLoc+"px")
 		}
 	}
+
+	for (i = 0; i < bracket.svgs.length; i++){
+		var points = "0 0,"+bracket.svgs[i].width/2+" 0,"+bracket.svgs[i].width/2+" "+bracket.svgs[i].height+","+bracket.svgs[i].width+" "+bracket.svgs[i].height
+
+		$(".brktBox").append("<svg id=svg"+i+" width="+bracket.svgs[i].width+" height="+bracket.svgs[i].height+"/>");
+		$("#svg"+i).css("left", bracket.svgs[i].xLoc+"px")
+		$("#svg"+i).css("top", bracket.svgs[i].yLoc+"px")
+		$("#svg"+i).append("<polyline id=pl"+i+" />");
+		$("#pl"+i).attr("points", points)
+	}
 }
 
 
@@ -86,7 +96,7 @@ function createMatches (bracket) {
 		extArr.push(i)
 	}
 
-	
+	bracket.svgs = []
 
 	//first round is required by law and seeds the next for loop
 	var round = {
@@ -179,6 +189,25 @@ function createMatches (bracket) {
 		for (j = 0; j < bracket.heats[i].noMatch; j++){
 			bracket.heats[i].matches[j].xLoc = (bracket.heats[i].heat - 1) * (rndWid+svgWid)
 			bracket.heats[i].matches[j].yLoc = (bracket.heats[i+1].matches[h].yLoc + bracket.heats[i+1].matches[h+1].yLoc) / 2
+
+			//create path for polyline svg
+			var svgObj = {
+				"xLoc" : bracket.heats[i].matches[j].xLoc - (svgWid),
+				"yLoc" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2),
+				"width" : svgWid,
+				"height" : Math.abs((bracket.heats[i+1].matches[h].yLoc + (rndHgt/2))-(bracket.heats[i].matches[j].yLoc + (rndHgt/2)))
+			}
+
+			bracket.svgs.push(svgObj)
+
+			svgObj = {
+				"xLoc" : bracket.heats[i].matches[j].xLoc - (svgWid),
+				"yLoc" : bracket.heats[i].matches[j].yLoc + (rndHgt/2),
+				"width" : svgWid,
+				"height" : Math.abs((bracket.heats[i+1].matches[h+1].yLoc + (rndHgt/2))-(bracket.heats[i].matches[j].yLoc + (rndHgt/2)))
+			}
+
+			bracket.svgs.push(svgObj)
 			h += 2
 		}
 	}

@@ -21,7 +21,7 @@ h1 {
 .brktWindow {
 	max-width: 90%;
 	height: calc(100vh - 50px);
-	background-color: gray;
+	/*background-color: gray;*/
 	margin: 0 auto;
 	display: flex;
 	justify-content: center;
@@ -30,7 +30,7 @@ h1 {
 }
 
 .brktBox {
-	background-color: green;
+	/*background-color: green;*/
 	position: relative;
 }
 
@@ -42,7 +42,17 @@ h1 {
 	position: absolute;
 }
 
+svg {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
 
+polyline {
+	fill: none;
+	stroke: black;
+	stroke-width: 2px;
+}
 
 
 
