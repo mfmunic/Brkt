@@ -42,19 +42,19 @@ h1 {
 	position: absolute;
 }
 
-svg {
+.hLine {
+	height: 2px;
+	background-color: black;
+	margin: 0 0;
 	position: absolute;
-	left: 0;
-	top: 0;
 }
 
-polyline {
-	fill: none;
-	stroke: black;
-	stroke-width: 2px;
+.vLine {
+	width: 2px;
+	background-color: black;
+	margin: 0 0;
+	position: absolute;
 }
-
-
 
 
 /*delete*/
