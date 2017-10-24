@@ -31,9 +31,24 @@ function createBracketImage(bracket){
 
 	for (i = 0; i < bracket.heatsTotal; i++){
 		for (j = 0; j < bracket.heats[i].noMatch; j++){
-			$(".brktBox").append("<div class=match id=match"+bracket.heats[i].matches[j].matchNo+">"+bracket.heats[i].matches[j].matchNo+"</div>")
-			$("#match"+bracket.heats[i].matches[j].matchNo).css("left", bracket.heats[i].matches[j].xLoc+"px")
-			$("#match"+bracket.heats[i].matches[j].matchNo).css("top", bracket.heats[i].matches[j].yLoc+"px")
+			var mtch = bracket.heats[i].matches[j]
+
+			$(".brktBox").append("<div class=match id=match"+mtch.matchNo+"></div>")
+
+			$("#match"+mtch.matchNo).css("left", mtch.xLoc+"px")
+			$("#match"+mtch.matchNo).css("top", mtch.yLoc+"px")
+
+			$("#match"+mtch.matchNo).append("<div class=play1 id=p"+i+"-"+j+">")
+
+			$("#p"+i+"-"+j).append("<div class=seed1 id=sd1-"+j+">"+mtch.player1+"</div>")
+			$("#p"+i+"-"+j).append("<div class=name1 id=nm1-"+j+"></div>")
+			$("#p"+i+"-"+j).append("<div class=score1 id=sc1-"+j+"></div>")
+
+			$("#match"+mtch.matchNo).append("<div class=play2 id=2p"+i+"-"+j+">")
+
+			$("#2p"+i+"-"+j).append("<div class=seed2 id=sd2-"+j+">"+mtch.player2+"</div>")
+			$("#2p"+i+"-"+j).append("<div class=name2 id=nm2-"+j+"></div>")
+			$("#2p"+i+"-"+j).append("<div class=score2 id=sc2-"+j+"></div>")
 		}
 	}
 
@@ -153,10 +168,10 @@ function createMatches (bracket) {
 			}
 
 			//need to capture next match for current round
-			// bracket.heats[i].matches[j].player1 = bracket.heats[i+1].matches[roundPH].winner
+			bracket.heats[i].matches[j].player1 = bracket.heats[i+1].matches[roundPH].winner
 			//place holder text for building
 			//delete later
-			bracket.heats[i].matches[j].player1 = "Winner of match "+bracket.heats[i+1].matches[roundPH].matchNo
+			// bracket.heats[i].matches[j].player1 = "Winner of match "+bracket.heats[i+1].matches[roundPH].matchNo
 
 			roundPH++
 
@@ -178,10 +193,10 @@ function createMatches (bracket) {
 			}
 
 
-			// bracket.heats[i].matches[j].player2 = bracket.heats[i+1].matches[roundPH].winner
+			bracket.heats[i].matches[j].player2 = bracket.heats[i+1].matches[roundPH].winner
 			//place holder text for building
 			//delete later
-			bracket.heats[i].matches[j].player2 = "Winner of match "+bracket.heats[i+1].matches[roundPH].matchNo
+			// bracket.heats[i].matches[j].player2 = "Winner of match "+bracket.heats[i+1].matches[roundPH].matchNo
 
 			roundPH++
 		}
@@ -203,7 +218,7 @@ function createMatches (bracket) {
 
 			bracket.heats[i].matches[j].xLoc = (bracket.heats[i].heat - 1) * (rndWid+svgWid)
 			bracket.heats[i].matches[j].yLoc = (bracket.heats[i+1].matches[h].yLoc + bracket.heats[i+1].matches[h+1].yLoc) / 2
-			console.log(bracket.heats[i].matches[j].yLoc)
+
 			// create path for 3 divs
 			var svgObj = {
 				"sHorX" : bracket.heats[i].matches[j].xLoc - (svgWid),
@@ -281,10 +296,10 @@ function createMatches (bracket) {
 
 				bracket.lineCoords.push(svgObj)
 				
-				// mainHeat.matches[j].player2 = preHeat.matches[i].winner
+				mainHeat.matches[j].player1 = preHeat.matches[i].winner
 				//place holder text for building
 				//delete later
-				mainHeat.matches[j].player1 = "Winner of match "+preHeat.matches[i].matchNo
+				// mainHeat.matches[j].player1 = "Winner of match "+preHeat.matches[i].matchNo
 				break;
 			}
 
@@ -311,10 +326,10 @@ function createMatches (bracket) {
 				}
 
 				bracket.lineCoords.push(svgObj)
-				// mainHeat.matches[j].player2 = preHeat.matches[i].winner
+				mainHeat.matches[j].player2 = preHeat.matches[i].winner
 				//place holder text for building
 				//delete later
-				mainHeat.matches[j].player2 = "Winner of match "+preHeat.matches[i].matchNo
+				// mainHeat.matches[j].player2 = "Winner of match "+preHeat.matches[i].matchNo
 				break;
 			}
 		}

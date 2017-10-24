@@ -57,61 +57,40 @@ h1 {
 }
 
 
-/*delete*/
-.brktCol {
-	/*height: calc(100% - 6px);*/
-	min-width: 100px;
-	border: 3px solid yellow;
+.play1 {
+	height: 50%;
+	border-bottom: 1px solid black;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
 }
-
-.pre-heat {
-	display: block;
-}
-
-.bigger {
-	height: 100%;
-}
-#preheatLeft{
-	border: 2px solid blue;
+.play2 {
 	height: 50%;
-	width: 100%;
-	padding-top: 40px;
+	display: flex;
 }
 
-#preheatRight{
-	border: 2px solid blue;
-	height: 50%;
-	width: 100%;
+.seed1 {
+	border-right: 1px solid black;
+	width: 15%;
+	text-align: center;
+	padding-top: 2px;
 }
 
-.conCol {
-	/*height: calc(100% - 6px);*/
-	width: 20px;
-	border: 3px solid red;
+.seed2 {
+	border-right: 1px solid black;
+	width: 15%;
+	text-align: center;
+	padding-top: 2px;
 }
 
-/*.cont {
-	height: 20px;
-	width: 100%;
-	background-color: white;
-}*/
-
-.round {
-	background-color: white;
-	padding: 3px;
-	margin-top: 80px;
+.name1 {
+	border-right: 1px solid black;
+	width: 70%;
+	text-align: center;
+	padding-top: 2px;
 }
 
-.pH {
-	margin-top: 85px;
-}
-
-.dblPH {
-	margin-top: 5px;
-}
-.players {
-	border: 1px solid black;
+.name2 {
+	border-right: 1px solid black;
+	width: 70%;
+	text-align: center;
+	padding-top: 2px;
 }
