@@ -1,6 +1,6 @@
 //Default testing to 31
 $(document).ready(function(){
-	var testNo = 10
+	var testNo = 13
 	var testBracket = createBracketObject(testNo)
 
 	createBracketImage(testBracket.info)
@@ -12,7 +12,13 @@ $("#createBtn").on("click", function (){
 	//number of contestants
 	var nCont = parseInt($("#noOfCont").val().trim());
 
-	var bracket = createBracketObject(nCont)
+	var players = $("#playNames").val().trim().split("\n");
+
+	if (players.length > 1){
+		nCont = players.length
+	}
+
+	var bracket = createBracketObject(nCont, players)
 
 	createBracketImage(bracket.info)
 	
@@ -41,13 +47,13 @@ function createBracketImage(bracket){
 			$("#match"+mtch.matchNo).append("<div class=play1 id=p"+i+"-"+j+">")
 
 			$("#p"+i+"-"+j).append("<div class=seed1 id=sd1-"+j+">"+mtch.player1+"</div>")
-			$("#p"+i+"-"+j).append("<div class=name1 id=nm1-"+j+"></div>")
+			$("#p"+i+"-"+j).append("<div class=name1 id=nm1-"+j+">"+(mtch.player1Name == undefined ? '' : mtch.player1Name)+"</div>")
 			$("#p"+i+"-"+j).append("<div class=score1 id=sc1-"+j+"></div>")
 
 			$("#match"+mtch.matchNo).append("<div class=play2 id=2p"+i+"-"+j+">")
 
 			$("#2p"+i+"-"+j).append("<div class=seed2 id=sd2-"+j+">"+mtch.player2+"</div>")
-			$("#2p"+i+"-"+j).append("<div class=name2 id=nm2-"+j+"></div>")
+			$("#2p"+i+"-"+j).append("<div class=name2 id=nm2-"+j+">"+(mtch.player2Name == undefined ? '' : mtch.player2Name)+"</div>")
 			$("#2p"+i+"-"+j).append("<div class=score2 id=sc2-"+j+"></div>")
 		}
 	}
@@ -80,13 +86,20 @@ function createBracketImage(bracket){
 //-------------------------------------------------
 //create a bracket object to build the html and css
 //-------------------------------------------------
-function createBracketObject (seeds) {
+function createBracketObject (seeds, names) {
 	//brktInfo will be the object that is returned
 	var bracket = {
 		"info": getBrktInfo(seeds),
+		"total" : seeds,
+		"names" : names
 	}
 
 	createMatches (bracket.info)
+	console.log(names)
+	if (names != undefined && names.length > 1){
+		addNames (names, bracket.info)
+	}
+	
 
 	return bracket
 }
@@ -220,30 +233,38 @@ function createMatches (bracket) {
 			bracket.heats[i].matches[j].yLoc = (bracket.heats[i+1].matches[h].yLoc + bracket.heats[i+1].matches[h+1].yLoc) / 2
 
 			// create path for 3 divs
+			//up connector
 			var svgObj = {
+				//top horizontal div
 				"sHorX" : bracket.heats[i].matches[j].xLoc - (svgWid),
-				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2),
+				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
 				"width" : svgWid/2,
+				//vertical div
 				"vertX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"vertY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2),
-				"height" : Math.abs((bracket.heats[i+1].matches[h].yLoc + (rndHgt/2))-(bracket.heats[i].matches[j].yLoc + (rndHgt/2))),
+				"vertY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
+				"height" : Math.abs(bracket.heats[i+1].matches[h].yLoc - bracket.heats[i].matches[j].yLoc) - (rndHgt/4) + 3,
+				//bottom horizontal div
 				"eHorX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt/2)
+				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.25) - 3
 			}
 
 			bracket.lineCoords.push(svgObj)
 
 			h++
 
+			//lower connector
 			var svgObj = {
+				//bottom horizontal div
 				"sHorX" : bracket.heats[i].matches[j].xLoc - (svgWid),
-				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2),
-				"width" : svgWid/2,
+				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
+				"width" : (svgWid/2) + 2,
+				//vertical div
 				"vertX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"vertY" : bracket.heats[i].matches[j].yLoc + (rndHgt/2),
-				"height" : Math.abs((bracket.heats[i+1].matches[h].yLoc + (rndHgt/2))-(bracket.heats[i].matches[j].yLoc + (rndHgt/2)))+2,
+				"vertY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 3,
+				"height" : Math.abs(bracket.heats[i+1].matches[h].yLoc - bracket.heats[i].matches[j].yLoc) - (rndHgt/4) + 3,
+				//top horizontal div
 				"eHorX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt/2)
+				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 3
 			}
 
 			bracket.lineCoords.push(svgObj)
@@ -273,7 +294,6 @@ function createMatches (bracket) {
 		//search through main to find extVs number then manipulate that round and create extra round
 		for (j = 0; j < mainHeat.noMatch; j++){
 			if (mainHeat.matches[j].player1 == extVs){
-				var extWin = preHeat.matches[i]
 				preHeat.matches[i] = {
 					"matchNo" : preHeat.matches[i],
 					"player1" : mainHeat.matches[j].player1,
@@ -284,14 +304,17 @@ function createMatches (bracket) {
 				}
 
 				var svgObj = {
+					//bottom horizontal div
 					"sHorX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt/2),
-					"width" : svgWid/2,
+					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt/4),
+					"width" : (svgWid/2) + 2,
+					//vertical div
 					"vertX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"vertY" : preHeat.matches[i].yLoc + (rndHgt/2),
-					"height" : Math.abs((mainHeat.matches[j].yLoc + (rndHgt/2))-(preHeat.matches[i].yLoc + (rndHgt/2)))+2,
+					"vertY" : preHeat.matches[i].yLoc + (rndHgt/2) - 3,
+					"height" : Math.abs(mainHeat.matches[j].yLoc - preHeat.matches[i].yLoc) - (rndHgt/4) + 3,
+					//top horizontal div
 					"eHorX" : preHeat.matches[i].xLoc + rndWid,
-					"eHorY" : preHeat.matches[i].yLoc + (rndHgt/2)
+					"eHorY" : preHeat.matches[i].yLoc + (rndHgt/2) - 3
 				}
 
 				bracket.lineCoords.push(svgObj)
@@ -304,7 +327,6 @@ function createMatches (bracket) {
 			}
 
 			if (mainHeat.matches[j].player2 == extVs){
-				var extWin = preHeat.matches[i]
 				preHeat.matches[i] = {
 					"matchNo" : preHeat.matches[i],
 					"player1" : mainHeat.matches[j].player2,
@@ -315,14 +337,17 @@ function createMatches (bracket) {
 				}
 				
 				var svgObj = {
+					//top horizontal div
 					"sHorX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt/2),
-					"width" : svgWid/2,
+					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt*.75) - 4,
+					"width" : (svgWid/2) + 2,
+					//vertical div
 					"vertX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"vertY" : mainHeat.matches[j].yLoc + (rndHgt/2),
-					"height" : Math.abs((mainHeat.matches[j].yLoc + (rndHgt/2))-(preHeat.matches[i].yLoc + (rndHgt/2)))+2,
+					"vertY" : mainHeat.matches[j].yLoc + (rndHgt*.75) - 3,
+					"height" : Math.abs(mainHeat.matches[j].yLoc - preHeat.matches[i].yLoc) - (rndHgt/4) + 2,
+					//bottom horizontal div
 					"eHorX" : preHeat.matches[i].xLoc + rndWid,
-					"eHorY" : preHeat.matches[i].yLoc + (rndHgt/2)
+					"eHorY" : preHeat.matches[i].yLoc + (rndHgt/2) - 3
 				}
 
 				bracket.lineCoords.push(svgObj)
@@ -452,5 +477,31 @@ function getHeatsInfo(main, extra, heatsTot, mtchTot){
 		noOfMatches *= 2
 	}
 
+
 	return heats
+}
+
+
+function addNames (names, bracket){
+	var main = bracket.heats[bracket.heats.length - 1].matches
+
+	if (bracket.extra > 0){
+		var extra = bracket.heats[bracket.heats.length - 1].matches
+
+		main = bracket.heats[bracket.heats.length - 2].matches
+		for (i = 0; i < extra.length; i++){
+				extra[i].player1Name = names[extra[i].player1 - 1]
+				extra[i].player2Name = names[extra[i].player2 - 1]
+		}
+	}
+
+	for (i = 0; i < main.length; i++){
+		if (main[i].player1 != ""){
+			main[i].player1Name = names[main[i].player1 - 1]
+		}
+		if (main[i].player1 != ""){
+			main[i].player2Name = names[main[i].player2 - 1]
+		}
+	}
+	// console.log(bracket)
 }
