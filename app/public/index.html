@@ -8,18 +8,49 @@
     <title>TBG</title>
 
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/slider.css">
+    
 
   </head>
   
   <body>
 
     <div id="sidebar">
+
       <h1>TBG</h1>
+
+      <div id="inputSel">
+
+        <div id="highlight"></div>
+
+        <p class="switch__label">Number</p>
+
+        <!-- switch -->
+        <label class="switch">
+          <input class="inputBtn" type="checkbox">
+          <span class="slider"></span>
+        </label>
+
+        <p class="switch__label">Names</p>
+
+      </div>
+
+
       <div class="form-group">
-        <input class="form-control" id="noOfCont" type="text">
-        <textarea class="form-control" id="playNames" type="text"></textarea>
+
+        <div id="inputNo">
+          <p>Type number of Contestants</p>
+          <input class="form-control" id="noOfCont" type="text">
+        </div>
+
+        <div id="inputNames">
+          <p>Type names of contestants seperated by &#13;</p>
+          <textarea class="form-control" id="playNames" type="text"></textarea>
+        </div>
+
         <button class="btn btn-primary" id="createBtn" type="submit">Create</button>
       </div>
+
     </div>
     
     <div class="brktWindow">
@@ -27,9 +58,10 @@
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
     <!-- logic -->
-    <!-- <script  type="text/javascript" src="js/index.js" ></script> -->
     <script  type="text/javascript" src="js/singleElim.js" ></script>
+    <script  type="text/javascript" src="js/sidebar.js" ></script>
 
   </body>
 </html>

@@ -1,21 +1,33 @@
+
+
 body {
 	margin: 0 0;
 	display: flex;
 }
 
 #sidebar {
-	width: 200px;
+	display: flex;
+	width: 250px;
 	height: 100vh;
 	background-color: blue;
 	align-items: center;
+	flex-direction: column;
 }
 
 h1 {
 	margin: 0 0;
 }
 
+#inputSel {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
 .form-group {
 	margin: 0 auto;
+	padding-left: 10px;
 }
 
 .brktWindow {
@@ -33,14 +45,13 @@ h1 {
 }
 
 #playNames {
-	height: 250px;
-	/*width: 180px;*/
+	height: 0;
+	width: 175px;
 	margin: 20px auto;
+	resize: none;
+	transition: .5s;
 
 }
-
-
-
 
 .match {
 	width: 196px;
@@ -50,21 +61,22 @@ h1 {
 	position: absolute;
 }
 
-.hLine {
-	height: 3px;
-	background-color: black;
-	margin: 0 0;
-	position: absolute;
+polyline {
+	fill:none;
+	stroke: black;
+	stroke-width: 3;
+	stroke-linejoin: round;
 }
 
-.vLine {
-	width: 2px;
-	background-color: black;
-	margin: 0 0;
-	position: absolute;
+.svgLine {
+	fill:none;
+	stroke:black;
+	stroke-width:3;
 }
 
 
+
+/*individual rounds*/
 .play1 {
 	height: 50%;
 	border-bottom: 1px solid black;
@@ -91,14 +103,14 @@ h1 {
 
 .name1 {
 	border-right: 1px solid black;
-	width: 70%;
+	width: 85%;
 	text-align: center;
 	padding-top: 2px;
 }
 
 .name2 {
 	border-right: 1px solid black;
-	width: 70%;
+	width: 85%;
 	text-align: center;
 	padding-top: 2px;
 }

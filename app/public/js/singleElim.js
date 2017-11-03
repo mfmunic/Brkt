@@ -12,7 +12,9 @@ $("#createBtn").on("click", function (){
 	//number of contestants
 	var nCont = parseInt($("#noOfCont").val().trim());
 
-	var players = $("#playNames").val().trim().split("\n");
+	var players = $("#playNames").val().split("\n");
+
+	players = validatePlayers(players)
 
 	if (players.length > 1){
 		nCont = players.length
@@ -27,11 +29,31 @@ $("#createBtn").on("click", function (){
 
 
 //-------------------------------------------------
+//remove any unwanted players
+//currently just extra spaces
+//-------------------------------------------------
+function validatePlayers (players){
+
+	for (i = 0; i < players.length; i++){
+		players[i] = players[i].trim()
+		if (players[i] === ""){
+			console.log(i)
+			players.splice(i, 1)
+		}
+	}
+
+	return players
+}
+
+
+
+
+//-<-----------------------------------------------
 //use the object created to create bracket
 //-------------------------------------------------
 function createBracketImage(bracket){
 	console.log(bracket)
-	$(".brktWindow").append("<div class=brktBox>")
+	$(".brktWindow").append("<div class=brktBox id=bBox>")
 	$(".brktBox").css("width", bracket.brktBox.width+"px")
 	$(".brktBox").css("height", bracket.brktBox.height+"px")
 
@@ -48,38 +70,35 @@ function createBracketImage(bracket){
 
 			$("#p"+i+"-"+j).append("<div class=seed1 id=sd1-"+j+">"+mtch.player1+"</div>")
 			$("#p"+i+"-"+j).append("<div class=name1 id=nm1-"+j+">"+(mtch.player1Name == undefined ? '' : mtch.player1Name)+"</div>")
-			$("#p"+i+"-"+j).append("<div class=score1 id=sc1-"+j+"></div>")
 
 			$("#match"+mtch.matchNo).append("<div class=play2 id=2p"+i+"-"+j+">")
 
 			$("#2p"+i+"-"+j).append("<div class=seed2 id=sd2-"+j+">"+mtch.player2+"</div>")
 			$("#2p"+i+"-"+j).append("<div class=name2 id=nm2-"+j+">"+(mtch.player2Name == undefined ? '' : mtch.player2Name)+"</div>")
-			$("#2p"+i+"-"+j).append("<div class=score2 id=sc2-"+j+"></div>")
 		}
 	}
 
+	// $(".brktBox").append("<svg id=svgBox width="+bracket.brktBox.width+" height="+bracket.brktBox.height+">")
+
+	var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		svg.setAttribute('id', 'svgBox');
+		svg.setAttribute('width', bracket.brktBox.width);
+		svg.setAttribute('height', bracket.brktBox.height);
+		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+
+	document.getElementById("bBox").appendChild(svg);
+
 	for (i = 0; i < bracket.lineCoords.length; i++){
-		$(".brktBox").append("<div class=hLine id=h"+i+">")
-		//classic place holder
-		var pch = bracket.lineCoords[i];
-		$("#h"+i).css("top", pch.sHorY);
-		$("#h"+i).css("left", pch.sHorX);
-		$("#h"+i).css("width", pch.width);
 
-		$(".brktBox").append("<div class=vLine id=vl"+i+">")
-		//classic place holder
-		var pch = bracket.lineCoords[i];
-		$("#vl"+i).css("top", pch.vertY);
-		$("#vl"+i).css("left", pch.vertX);
-		$("#vl"+i).css("height", pch.height);
+		// temp var
+		var tv = bracket.lineCoords[i]
+		var points = `${tv.pt1x},${tv.pt1y} ${tv.pt2x},${tv.pt2y} ${tv.pt3x},${tv.pt3y} ${tv.pt4x},${tv.pt4y}`;
 
-		$(".brktBox").append("<div class=hLine id=hl"+i+">")
-		//classic place holder
-		var pch = bracket.lineCoords[i];
-		$("#hl"+i).css("top", pch.eHorY);
-		$("#hl"+i).css("left", pch.eHorX);
-		$("#hl"+i).css("width", pch.width);
+		var newLine = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+		newLine.setAttributeNS(null, "points", points);
+		document.getElementById('svgBox').appendChild(newLine);
 	}
+
 }
 
 
@@ -95,7 +114,7 @@ function createBracketObject (seeds, names) {
 	}
 
 	createMatches (bracket.info)
-	console.log(names)
+
 	if (names != undefined && names.length > 1){
 		addNames (names, bracket.info)
 	}
@@ -112,15 +131,16 @@ function createBracketObject (seeds, names) {
 //-------------------------------------------------------
 function createMatches (bracket) {
 
-	var rndWid = 200
-	var svgWid = 10
-	var rndHgt = 55
-
-	//calling this variable bow to locate the heat that is considered main for later use
+	//calling this variable now to locate the heat that is considered main for later use
 	var mainCol
 
 	var box = findBox(bracket.heatsTotal, bracket.main, bracket.extra)
 	bracket.brktBox = box
+
+	//referenced in findBox()
+	var rndWid = bracket.brktBox.rndWid
+	var svgWid = bracket.brktBox.svgWid
+	var rndHgt = bracket.brktBox.rndHgt
 
 	//create the array necessary to find the rounds
 	var mainArr = []
@@ -173,10 +193,16 @@ function createMatches (bracket) {
 				"winner" : ""
 			}
 
+
 			//xy coord for main first extra second the middle last
 			if (bracket.heats[i+1].main == true){
 				bracket.heats[i+1].matches[roundPH].xLoc = (bracket.heats[i+1].heat - 1) * (rndWid+svgWid);
-				bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - rndHgt;
+				if (bracket.extra >= bracket.main/2){
+					bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - (rndHgt * 1.5);
+				} else {
+					bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - rndHgt;
+				}
+				
 				mainCol = i
 			}
 
@@ -202,7 +228,11 @@ function createMatches (bracket) {
 			//xy coord for main first extra second the middle last
 			if (bracket.heats[i+1].main == true){
 				bracket.heats[i+1].matches[roundPH].xLoc = (bracket.heats[i+1].heat - 1) * (rndWid+svgWid);
-				bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - rndHgt;
+				if (bracket.extra >= bracket.main/2){
+					bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - (rndHgt * 1.5);
+				} else {
+					bracket.heats[i+1].matches[roundPH].yLoc = ((box.height/(bracket.heats[i+1].noMatch)) * (roundPH + 1)) - rndHgt;
+				}
 			}
 
 
@@ -232,20 +262,24 @@ function createMatches (bracket) {
 			bracket.heats[i].matches[j].xLoc = (bracket.heats[i].heat - 1) * (rndWid+svgWid)
 			bracket.heats[i].matches[j].yLoc = (bracket.heats[i+1].matches[h].yLoc + bracket.heats[i+1].matches[h+1].yLoc) / 2
 
-			// create path for 3 divs
-			//up connector
+			//upper connector
 			var svgObj = {
-				//top horizontal div
-				"sHorX" : bracket.heats[i].matches[j].xLoc - (svgWid),
-				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
-				"width" : svgWid/2,
-				//vertical div
-				"vertX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"vertY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
-				"height" : Math.abs(bracket.heats[i+1].matches[h].yLoc - bracket.heats[i].matches[j].yLoc) - (rndHgt/4) + 3,
-				//bottom horizontal div
-				"eHorX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.25) - 3
+				// position 1
+				"pt1x" : bracket.heats[i].matches[j].xLoc - (svgWid),
+				"pt1y" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 2,
+
+				//postion 2
+				"pt2x" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
+				"pt2y" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 2,
+
+				// postion 3
+				"pt3x" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
+				"pt3y" : bracket.heats[i].matches[j].yLoc + (rndHgt*.25) - 2,
+
+				// postion 4
+				"pt4x" : bracket.heats[i].matches[j].xLoc,
+				"pt4y" : bracket.heats[i].matches[j].yLoc + (rndHgt*.25) - 2
+
 			}
 
 			bracket.lineCoords.push(svgObj)
@@ -254,17 +288,23 @@ function createMatches (bracket) {
 
 			//lower connector
 			var svgObj = {
-				//bottom horizontal div
-				"sHorX" : bracket.heats[i].matches[j].xLoc - (svgWid),
-				"sHorY" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 3,
-				"width" : (svgWid/2) + 2,
-				//vertical div
-				"vertX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"vertY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 3,
-				"height" : Math.abs(bracket.heats[i+1].matches[h].yLoc - bracket.heats[i].matches[j].yLoc) - (rndHgt/4) + 3,
-				//top horizontal div
-				"eHorX" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
-				"eHorY" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 3
+
+				// postion 1
+				"pt1x" : bracket.heats[i].matches[j].xLoc - (svgWid),
+				"pt1y" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 2,
+
+				// position 2
+				"pt2x" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
+				"pt2y" : bracket.heats[i+1].matches[h].yLoc + (rndHgt/2) - 2,
+
+				// position 3
+				"pt3x" : bracket.heats[i].matches[j].xLoc - (svgWid/2),
+				"pt3y" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 2,
+
+				// position 4
+				"pt4x" : bracket.heats[i].matches[j].xLoc,
+				"pt4y" : bracket.heats[i].matches[j].yLoc + (rndHgt*.75) - 2
+
 			}
 
 			bracket.lineCoords.push(svgObj)
@@ -299,22 +339,27 @@ function createMatches (bracket) {
 					"player1" : mainHeat.matches[j].player1,
 					"player2" : extArr[i],
 					"winner" : "",
-					"xLoc" : mainHeat.matches[j].xLoc - 210,
+					"xLoc" : mainHeat.matches[j].xLoc - (rndWid + svgWid),
 					"yLoc" : mainHeat.matches[j].yLoc - (rndHgt/2)
 				}
 
 				var svgObj = {
-					//bottom horizontal div
-					"sHorX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt/4),
-					"width" : (svgWid/2) + 2,
-					//vertical div
-					"vertX" : mainHeat.matches[j].xLoc - (svgWid/2),
-					"vertY" : preHeat.matches[i].yLoc + (rndHgt/2) - 3,
-					"height" : Math.abs(mainHeat.matches[j].yLoc - preHeat.matches[i].yLoc) - (rndHgt/4) + 3,
-					//top horizontal div
-					"eHorX" : preHeat.matches[i].xLoc + rndWid,
-					"eHorY" : preHeat.matches[i].yLoc + (rndHgt/2) - 3
+
+					// postion 1
+					"pt1x" : mainHeat.matches[j].xLoc,
+					"pt1y" : mainHeat.matches[j].yLoc + (rndHgt/4),
+
+					// position 2
+					"pt2x" : mainHeat.matches[j].xLoc - (svgWid/2),
+					"pt2y" : mainHeat.matches[j].yLoc + (rndHgt/4),
+
+					// position 3
+					"pt3x" : mainHeat.matches[j].xLoc - (svgWid/2),
+					"pt3y" : preHeat.matches[i].yLoc + (rndHgt/2) - 2,
+
+					// position 4
+					"pt4x" : preHeat.matches[i].xLoc + rndWid,
+					"pt4y" : preHeat.matches[i].yLoc + (rndHgt/2) - 2,
 				}
 
 				bracket.lineCoords.push(svgObj)
@@ -332,11 +377,28 @@ function createMatches (bracket) {
 					"player1" : mainHeat.matches[j].player2,
 					"player2" : extArr[i],
 					"winner" : "",
-					"xLoc" : mainHeat.matches[j].xLoc - 210,
+					"xLoc" : mainHeat.matches[j].xLoc - (rndWid + svgWid),
 					"yLoc" : mainHeat.matches[j].yLoc + (rndHgt/2)
 				}
 				
 				var svgObj = {
+
+					// postion 1
+					"pt1x" : mainHeat.matches[j].xLoc,
+					"pt1y" : mainHeat.matches[j].yLoc + (rndHgt*.75) - 3,
+
+					// position 2
+					"pt2x" : mainHeat.matches[j].xLoc - (svgWid/2),
+					"pt2y" : mainHeat.matches[j].yLoc + (rndHgt*.75) - 3,
+
+					// position 3
+					"pt3x" : mainHeat.matches[j].xLoc - (svgWid/2),
+					"pt3y" : preHeat.matches[i].yLoc + (rndHgt/2) - 2,
+
+					// position 4
+					"pt4x" : preHeat.matches[i].xLoc + rndWid,
+					"pt4y" : preHeat.matches[i].yLoc + (rndHgt/2) - 2,
+
 					//top horizontal div
 					"sHorX" : mainHeat.matches[j].xLoc - (svgWid/2),
 					"sHorY" : mainHeat.matches[j].yLoc + (rndHgt*.75) - 4,
@@ -376,7 +438,7 @@ function findBox (heats, main, extra){
 	//subject to change
 	var rndWid = 200
 	var rndHgt = 55
-	var svgWid = 10
+	var svgWid = 20
 
 	var width = (heats * rndWid) + ((heats-1)*svgWid)
 	var height = (main/2 * rndHgt) + (rndHgt*1.5)
@@ -388,7 +450,10 @@ function findBox (heats, main, extra){
 
 	var box = {
 		"width" : width,
-		"height" : height
+		"height" : height,
+		"rndWid" : rndWid,
+		"rndHgt" : rndHgt,
+		"svgWid" : svgWid
 	}
 
 	return box
