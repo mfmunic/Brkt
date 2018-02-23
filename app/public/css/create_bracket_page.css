@@ -1,0 +1,104 @@
+.cbrktpg {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* #sidebar {
+  display: flex;
+  width: 250px;
+  height: 100vh;
+  background-color: blue;
+  align-items: center;
+  flex-direction: column;
+} */
+
+#inputSel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin: 0 auto;
+  padding-left: 10px;
+}
+
+.brktWindow {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+}
+
+.brktBox {
+  position: relative;
+}
+
+#playNames {
+  height: 0;
+  width: 175px;
+  margin: 20px auto;
+  resize: none;
+  transition: 0.5s;
+}
+
+.match {
+  width: 196px;
+  height: 46px;
+  background-color: #fff;
+  border: 2px solid black;
+  position: absolute;
+}
+
+polyline {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.svgLine {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
+}
+
+/*individual rounds*/
+.play1 {
+  height: 50%;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+.play2 {
+  height: 50%;
+  display: flex;
+}
+
+.seed1 {
+  border-right: 1px solid black;
+  width: 15%;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.seed2 {
+  border-right: 1px solid black;
+  width: 15%;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.name1 {
+  border-right: 1px solid black;
+  width: 85%;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.name2 {
+  border-right: 1px solid black;
+  width: 85%;
+  text-align: center;
+  padding-top: 2px;
+}

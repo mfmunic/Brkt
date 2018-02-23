@@ -1,67 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>TBG</title>
 
-    <title>TBG</title>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/create_bracket_page.css">
+  <link rel="stylesheet" type="text/css" href="css/slider.css">
 
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/slider.css">
-    
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-  </head>
-  
-  <body>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
 
-    <div id="sidebar">
+</head>
 
-      <h1>TBG</h1>
+<body>
 
-      <div id="inputSel">
+  <div id="root"></div>
 
-        <div id="highlight"></div>
-
-        <p class="switch__label">Number</p>
-
-        <!-- switch -->
-        <label class="switch">
-          <input class="inputBtn" type="checkbox">
-          <span class="slider"></span>
-        </label>
-
-        <p class="switch__label">Names</p>
-
-      </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
 
-      <div class="form-group">
+  <!-- logic -->
+  <script type="text/javascript" src="js/singleElim.js"></script>
+  <script type="text/javascript" src="js/sidebar.js"></script>
+</body>
 
-        <div id="inputNo">
-          <p>Type number of Contestants</p>
-          <input class="form-control" id="noOfCont" type="text">
-        </div>
-
-        <div id="inputNames">
-          <p>Type names of contestants seperated by &#13;</p>
-          <textarea class="form-control" id="playNames" type="text"></textarea>
-        </div>
-
-        <button class="btn btn-primary" id="createBtn" type="submit">Create</button>
-      </div>
-
-    </div>
-    
-    <div class="brktWindow">
-    </div>
-
-    <!-- jQuery -->
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-    <!-- logic -->
-    <script  type="text/javascript" src="js/singleElim.js" ></script>
-    <script  type="text/javascript" src="js/sidebar.js" ></script>
-
-  </body>
 </html>
