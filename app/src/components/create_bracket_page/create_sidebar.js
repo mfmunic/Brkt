@@ -5,7 +5,13 @@ import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateSidebar extends Component {
   updateNumber(event) {
-    this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+    if (this.props.createBracket.input === 'Numbers') {
+      this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+    }
+    // else if (this.props.createBracket.input === 'Names') {
+    //   const arrPlayers = players.split('\n');
+    //   this.props.dispatch(Create.updateNoOfPlayers(arrPlayers.length));
+    // }
   }
 
   updateNames(event) {
@@ -53,7 +59,12 @@ class CreateSidebar extends Component {
             </div>
           ) : (
             <div id="inputNames">
-              <p>Type names of contestants seperated by &#13;</p>
+              <p>
+                Type names of contestants seperated by{' '}
+                <strong>
+                  Enter<i class="material-icons md-18">keyboard_return</i>
+                </strong>
+              </p>
               <textarea
                 className="form-control"
                 id="playNames"

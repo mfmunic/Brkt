@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "eslint": "^4.17.0",
+    "jasmine-node": "^1.14.5",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -18,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "./node_modules/.bin/jasmine-node src/test/CMAspec.js --verbose",
     "eject": "react-scripts eject"
   }
 }
