@@ -5,6 +5,7 @@ const createMainArray = require('./createMainArray');
 const addMainMatches = require('./addMainMatches');
 const createMatchObject = require('./createMatchObject');
 const createInitObj = require('./createInitObj');
+const addExtraMatches = require('./addExtraMatches');
 
 module.exports = function getBrktInfo(seeds) {
   const initObj = createInitObj(seeds);
@@ -14,7 +15,9 @@ module.exports = function getBrktInfo(seeds) {
   const matches = createMatchObject(initObj);
   addMainMatches(matches, initObj);
 
-  //TODO: addExtraMatches
+  if (initObj.extra > 0) {
+    addExtraMatches(matches, initObj);
+  }
 
   //TODO: createBox
 

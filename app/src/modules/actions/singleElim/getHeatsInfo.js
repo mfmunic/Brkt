@@ -35,6 +35,7 @@ module.exports = function getHeatsInfo(init) {
     heats.push(heat);
     noOfMatches *= 2;
   }
+
   return heats;
 };
 

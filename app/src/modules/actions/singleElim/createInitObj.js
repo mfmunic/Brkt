@@ -26,6 +26,7 @@ module.exports = function createInitObj(seeds) {
   }
 
   let initObj = {
+    total: seeds,
     main,
     extra,
     heatsTotal,
