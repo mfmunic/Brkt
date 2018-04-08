@@ -5,28 +5,27 @@ const createMainArray = require('./createMainArray');
 const addMainMatches = require('./addMainMatches');
 const createMatchObject = require('./createMatchObject');
 const createInitObj = require('./createInitObj');
-// const convertArrayToObjects = require('./convertArrayToObjects');
 
 module.exports = function getBrktInfo(seeds) {
   const initObj = createInitObj(seeds);
 
-  const matches = createMatchObject(initObj);
-  const mainArr = addMainMatches(matches, initObj);
+  initObj.heats = getHeatsInfo(initObj);
 
-  // const brktInfo = {
-  //   heatsTotal: heatsTotal,
-  //   main: main,
-  //   matchesTotal: seeds - 1
-  //   // heats: getHeatsInfo(main, extra, heatsTotal, seeds - 1)
-  // };
+  const matches = createMatchObject(initObj);
+  addMainMatches(matches, initObj);
+
+  //TODO: addExtraMatches
+
+  //TODO: createBox
+
+  //TODO: addCoordinates
+
+  //TODO: addSVGlines
 
   const brktInfo = {
-    initObj,
-    matches,
-    mainArr
+    ...initObj,
+    matches
   };
-
-  // const heatArr = createHeatsArray(brktInfo);
 
   return brktInfo;
 };

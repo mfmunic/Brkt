@@ -1,7 +1,11 @@
 //-------------------------------------------------------
 //break down of which matches are in which heat
 //-------------------------------------------------------
-module.exports = function getHeatsInfo(main, extra, heatsTotal, matchTotal) {
+module.exports = function getHeatsInfo(init) {
+  const main = init.main;
+  const extra = init.extra;
+  const heatsTotal = init.heatsTotal;
+  let matchTotal = init.matchesTotal;
   let noOfMatches = 1;
   let heats = [];
 
