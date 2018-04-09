@@ -6,6 +6,7 @@ const createInitObj = require('./createInitObj');
 const addExtraMatches = require('./addExtraMatches');
 const createBox = require('./createBox');
 const addMainCoords = require('./addMainCoords');
+const addExtCoords = require('./addExtCoords');
 
 module.exports = function getBrktInfo(seeds) {
   const initObj = createInitObj(seeds);
@@ -23,14 +24,17 @@ module.exports = function getBrktInfo(seeds) {
 
   addMainCoords(matches, initObj);
 
-  //TODO: addExtraCoordinates
+  if (initObj.extra > 0) {
+    addExtCoords(matches, initObj);
+  }
 
-  //TODO: addSVGlines
+  //TODO: addSVGMainlines
+  //TODO: addSVGExtralines
 
   const brktInfo = {
     ...initObj,
     matches
   };
-
+  // console.log(brktInfo);
   return brktInfo;
 };

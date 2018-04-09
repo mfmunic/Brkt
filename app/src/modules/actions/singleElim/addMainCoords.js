@@ -21,5 +21,4 @@ module.exports = function addMainCoords(matchObj, init) {
       match.yLoc = matchHeatColPos - init.box.rndHgt / 2;
     }
   });
-  console.log(matchObj);
 };

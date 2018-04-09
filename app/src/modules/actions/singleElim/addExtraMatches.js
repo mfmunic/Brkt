@@ -32,18 +32,24 @@ module.exports = function addExtraMatches(matchObj, init) {
     if (mainArr.includes(mainMatch.player1seed)) {
       const arrPos = mainArr.indexOf(mainMatch.player1seed);
       mainMatch.player1seed = '';
+      mainMatch.getFrom = extMatchCt;
       extMatch.player1seed = mainArr[arrPos];
       extMatch.player2seed = extArr[arrPos];
       extMatch.division = mainMatch.division;
       extMatch.main = false;
+      extMatch.goesTo = mainHeatChk;
+      extMatch.goesToPos = 'upper';
       extMatchCt++;
     } else if (mainArr.includes(mainMatch.player2seed)) {
       const arrPos = mainArr.indexOf(mainMatch.player2seed);
       mainMatch.player2seed = '';
+      mainMatch.getFrom = extMatchCt;
       extMatch.player1seed = mainArr[arrPos];
       extMatch.player2seed = extArr[arrPos];
       extMatch.division = mainMatch.division;
       extMatch.main = false;
+      extMatch.goesTo = mainHeatChk;
+      extMatch.goesToPos = 'lower';
       mainHeatChk++;
       extMatchCt++;
     } else {

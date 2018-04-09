@@ -34,7 +34,10 @@ module.exports = function addMainMatches(matchObj, init) {
     const prev = matchObj[`match${matchInc}`];
     if (prev.player2seed !== '') {
       curr.player1seed = prev.player2seed;
-      prev.player2seed = curr.winner;
+      prev.player2seed = '';
+      prev.getFrom = k;
+      curr.goesTo = matchInc;
+      curr.goesToPos = 'lower';
       if (curr.player1seed == 2 || prev.division == 'lower') {
         curr.division = 'lower';
       } else {
@@ -42,7 +45,10 @@ module.exports = function addMainMatches(matchObj, init) {
       }
     } else {
       curr.player1seed = prev.player1seed;
-      prev.player1seed = curr.winner;
+      prev.player1seed = '';
+      prev.getFrom = k;
+      curr.goesTo = matchInc;
+      curr.goesToPos = 'upper';
       if (curr.player1seed == 2 || prev.division == 'lower') {
         curr.division = 'lower';
       } else {
