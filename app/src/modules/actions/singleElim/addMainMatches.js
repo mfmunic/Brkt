@@ -19,6 +19,7 @@ module.exports = function addMainMatches(matchObj, init) {
   matchObj[`match${init.matchesTotal}`].player1seed = 1;
   matchObj[`match${init.matchesTotal}`].player2seed = 2;
   matchObj[`match${init.matchesTotal}`].division = 'final';
+  matchObj[`match${init.matchesTotal}`].main = true;
 
   function player2Arr(increment) {
     newArr = [];
@@ -51,6 +52,7 @@ module.exports = function addMainMatches(matchObj, init) {
     }
 
     curr.player2seed = newArr[newArr.length - curr.player1seed];
+    curr.main = true;
 
     incCheck--;
     if (incCheck === 0) {

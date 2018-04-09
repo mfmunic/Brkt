@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "./node_modules/.bin/jasmine-node src/test/AMMspec.js --verbose",
+    "test": "./node_modules/.bin/jasmine-node src/test/CBspec.js --verbose",
     "eject": "react-scripts eject"
   }
 }

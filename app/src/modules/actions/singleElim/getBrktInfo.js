@@ -1,11 +1,11 @@
 // const _ = require('lodash');
 const getHeatsInfo = require('./getHeatsInfo');
-const createHeatsArray = require('./createHeatsArray');
-const createMainArray = require('./createMainArray');
 const addMainMatches = require('./addMainMatches');
 const createMatchObject = require('./createMatchObject');
 const createInitObj = require('./createInitObj');
 const addExtraMatches = require('./addExtraMatches');
+const createBox = require('./createBox');
+const addMainCoords = require('./addMainCoords');
 
 module.exports = function getBrktInfo(seeds) {
   const initObj = createInitObj(seeds);
@@ -19,9 +19,11 @@ module.exports = function getBrktInfo(seeds) {
     addExtraMatches(matches, initObj);
   }
 
-  //TODO: createBox
+  initObj.box = createBox(initObj);
 
-  //TODO: addCoordinates
+  addMainCoords(matches, initObj);
+
+  //TODO: addExtraCoordinates
 
   //TODO: addSVGlines
 

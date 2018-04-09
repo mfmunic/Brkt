@@ -1,5 +1,5 @@
-const getBrktInfo = require('../modules/actions/singleElim/getBrktInfo');
-const getHeatsInfo = require('../modules/actions/singleElim/getHeatsInfo');
+import getBrktInfo from '../modules/actions/singleElim/getBrktInfo';
+import getHeatsInfo from '../modules/actions/singleElim/getHeatsInfo';
 
 describe('Single Elimination Bracket', () => {
   describe('Initial Bracket Info', () => {

@@ -1,4 +1,4 @@
-const cio = require('../modules/actions/singleElim/createInitObj');
+import cio from '../modules/actions/singleElim/createInitObj';
 
 describe('createStartingArray', () => {
   it('sending 8', () => {
