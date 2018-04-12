@@ -11,7 +11,8 @@ export default function(state = initialState, action = {}) {
     case actionTypes.UPDATE_NOOFPLAYERS:
       return {
         ...state,
-        noOfPlayers: action.payload
+        noOfPlayers: action.payload.noOfPlayers,
+        brktInfo: action.payload.brktInfo
       };
 
     case actionTypes.UPDATE_PLAYERNAMES:

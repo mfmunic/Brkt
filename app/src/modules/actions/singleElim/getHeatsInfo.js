@@ -9,7 +9,7 @@ module.exports = function getHeatsInfo(init) {
   let noOfMatches = 1;
   let heats = [];
 
-  for (i = 0; i < heatsTotal; i++) {
+  for (let i = 0; i < heatsTotal; i++) {
     let heat = {
       heat: heatsTotal - i,
       noMatch: noOfMatches,
@@ -18,16 +18,16 @@ module.exports = function getHeatsInfo(init) {
       extra: false
     };
 
-    if (main / 2 == noOfMatches) {
+    if (main / 2 === noOfMatches) {
       heat.main = true;
     }
 
-    if (i == heatsTotal - 1 && extra > 0) {
+    if (i === heatsTotal - 1 && extra > 0) {
       heat.extra = true;
       heat.noMatch = extra;
     }
 
-    for (j = heat.noMatch; j > 0 && matchTotal > 0; j--) {
+    for (let j = heat.noMatch; j > 0 && matchTotal > 0; j--) {
       heat.matches.push(matchTotal);
       matchTotal--;
     }

@@ -11,7 +11,7 @@ module.exports = function addMainMatches(matchObj, init) {
   let newArr = [];
 
   //create an array of numbers for the main
-  for (i = 3; i <= main; i++) {
+  for (let i = 3; i <= main; i++) {
     mainArr.push(i);
   }
 
@@ -23,13 +23,13 @@ module.exports = function addMainMatches(matchObj, init) {
 
   function player2Arr(increment) {
     newArr = [];
-    for (j = 0; j < increment; j++) {
+    for (let j = 0; j < increment; j++) {
       newArr.push(mainArr.shift());
     }
   }
 
   player2Arr(inc);
-  for (k = init.matchesTotal - 1; k > init.extra; k--) {
+  for (let k = init.matchesTotal - 1; k > init.extra; k--) {
     const curr = matchObj[`match${k}`];
     const prev = matchObj[`match${matchInc}`];
     if (prev.player2seed !== '') {
@@ -38,7 +38,7 @@ module.exports = function addMainMatches(matchObj, init) {
       prev.getFrom = k;
       curr.goesTo = matchInc;
       curr.goesToPos = 'lower';
-      if (curr.player1seed == 2 || prev.division == 'lower') {
+      if (curr.player1seed === 2 || prev.division === 'lower') {
         curr.division = 'lower';
       } else {
         curr.division = 'upper';
@@ -49,7 +49,7 @@ module.exports = function addMainMatches(matchObj, init) {
       prev.getFrom = k;
       curr.goesTo = matchInc;
       curr.goesToPos = 'upper';
-      if (curr.player1seed == 2 || prev.division == 'lower') {
+      if (curr.player1seed === 2 || prev.division === 'lower') {
         curr.division = 'lower';
       } else {
         curr.division = 'upper';

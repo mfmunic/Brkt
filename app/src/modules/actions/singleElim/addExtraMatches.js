@@ -18,14 +18,14 @@ module.exports = function addExtraMatches(matchObj, init) {
   );
   let mainHeatChk = mainHeatChkArr[0];
 
-  for (i = init.extra; i > 0; i--) {
+  for (let i = init.extra; i > 0; i--) {
     mainArr.push(main);
     extArr.unshift(total);
     main--;
     total--;
   }
 
-  for (j = init.extra; j > 0; j--) {
+  for (let j = init.extra; j > 0; j--) {
     const mainMatch = matchObj[`match${mainHeatChk}`];
     const extMatch = matchObj[`match${extMatchCt}`];
 

@@ -4,15 +4,14 @@
 //-------------------------------------------------------------------------------
 
 module.exports = function createMatchObject(init) {
-  const main = init.main;
   let heatsTotal = init.heatsTotal;
   const heat = init.heats;
 
   let matches = {};
 
   //   console.log('init', init);
-  for (i = 0; i < heatsTotal; i++) {
-    for (j = heat[i].noMatch; j > 0; j--) {
+  for (let i = 0; i < heatsTotal; i++) {
+    for (let j = heat[i].noMatch; j > 0; j--) {
       matches[`match${heat[i].matches[j - 1]}`] = {
         heat: heat[i].heat,
         winner: '',

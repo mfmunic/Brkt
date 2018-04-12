@@ -18,7 +18,7 @@ class CreateBracketPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    // publisherRoutes: state.app.publisherRoutes
+    createBracket: state.createBracket
   };
 }
 

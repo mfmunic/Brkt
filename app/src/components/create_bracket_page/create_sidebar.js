@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateSidebar extends Component {
+  componentWillMount() {
+    this.props.dispatch(Create.updateNoOfPlayers(15));
+  }
+
   updateNumber(event) {
-    if (this.props.createBracket.input === 'Numbers') {
+    if (event.target.value > 1) {
       this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
     }
-    // else if (this.props.createBracket.input === 'Names') {
-    //   const arrPlayers = players.split('\n');
-    //   this.props.dispatch(Create.updateNoOfPlayers(arrPlayers.length));
-    // }
   }
 
   updateNames(event) {

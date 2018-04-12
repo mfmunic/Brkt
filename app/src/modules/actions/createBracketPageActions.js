@@ -1,9 +1,11 @@
 import * as actionTypes from '../actionTypes';
+import getBrktInfo from './singleElim/getBrktInfo.js';
 
 export function updateNoOfPlayers(noOfPlayers) {
+  const brktInfo = getBrktInfo(noOfPlayers);
   return {
     type: actionTypes.UPDATE_NOOFPLAYERS,
-    payload: noOfPlayers
+    payload: { noOfPlayers, brktInfo }
   };
 }
 

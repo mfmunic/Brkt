@@ -9,7 +9,7 @@ module.exports = function createInitObj(seeds) {
   let extra = 0;
   let heatsTotal = 0;
   //determine the number of heats (columns)
-  for (i = 1; i <= seeds; i *= 2) {
+  for (let i = 1; i <= seeds; i *= 2) {
     if (i * 2 <= seeds) {
       main = i * 2;
       heatsTotal++;
