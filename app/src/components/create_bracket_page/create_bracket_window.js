@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import CreateMatch from './create_matches';
 // import { Link } from 'react-router-dom';
 // import { fetchPublisherRoutes, resetPublisherOne } from '../../modules/actions';
 
@@ -24,7 +26,11 @@ class CreateBracketWindow extends Component {
     console.log(brktInfo);
     return (
       <div className="brktWindow col-sm-9 align-self-start">
-        <div className="brktBox" id="bBox" style={bBoxStyle} />
+        <div className="brktBox" id="bBox" style={bBoxStyle}>
+          {_.map(brktInfo.matches, match => {
+            return <CreateMatch key={match.match} data={match} />;
+          })}
+        </div>
       </div>
     );
   }
