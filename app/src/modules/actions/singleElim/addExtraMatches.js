@@ -8,8 +8,7 @@ module.exports = function addExtraMatches(matchObj, init) {
   //create two arrays one for checking against and the other the extras
   let mainArr = [];
   let extArr = [];
-  let total = init.total;
-  let main = init.main;
+  let { total, main, extra } = init;
   let extMatchCt = 1;
   const mainHeatChkArr = _.find(init.heats, { main: true }).matches.sort(
     function(a, b) {
@@ -17,45 +16,55 @@ module.exports = function addExtraMatches(matchObj, init) {
     }
   );
   let mainHeatChk = mainHeatChkArr[0];
-
-  for (let i = init.extra; i > 0; i--) {
+  for (let i = extra; i > 0; i--) {
     mainArr.push(main);
-    extArr.unshift(total);
+    extArr.unshift(parseInt(total, 10));
     main--;
     total--;
   }
+  console.log('mainArr', mainArr);
+  console.log('extArr', extArr);
 
-  for (let j = init.extra; j > 0; j--) {
-    const mainMatch = matchObj[`match${mainHeatChk}`];
-    const extMatch = matchObj[`match${extMatchCt}`];
+  _.forEach(extArr, (extraElem, index) => {
+    console.log(extraElem);
+    console.log('index', index);
+    // const match = matchObj[`match${mainHeatChk}`];
+    const extMatch = matchObj[`match${index + 1}`];
+    // console.log('match', match);
+    _.map(matchObj, match => {
+      if (match.heat === 2) {
+        if (mainArr.includes(match.player1seed)) {
+          console.log('match.player1seed', match.player1seed);
 
-    if (mainArr.includes(mainMatch.player1seed)) {
-      const arrPos = mainArr.indexOf(mainMatch.player1seed);
-      mainMatch.player1seed = '';
-      mainMatch.getFrom = extMatchCt;
-      extMatch.player1seed = mainArr[arrPos];
-      extMatch.player2seed = extArr[arrPos];
-      extMatch.division = mainMatch.division;
-      extMatch.main = false;
-      extMatch.goesTo = mainHeatChk;
-      extMatch.goesToPos = 'upper';
-      extMatchCt++;
-    } else if (mainArr.includes(mainMatch.player2seed)) {
-      const arrPos = mainArr.indexOf(mainMatch.player2seed);
-      mainMatch.player2seed = '';
-      mainMatch.getFrom = extMatchCt;
-      extMatch.player1seed = mainArr[arrPos];
-      extMatch.player2seed = extArr[arrPos];
-      extMatch.division = mainMatch.division;
-      extMatch.main = false;
-      extMatch.goesTo = mainHeatChk;
-      extMatch.goesToPos = 'lower';
-      mainHeatChk++;
-      extMatchCt++;
-    } else {
-      mainHeatChk++;
-    }
-  }
+          const arrPos = mainArr.indexOf(match.player1seed);
+          match.player1seed = '';
+          match.getFrom = extMatchCt;
+          extMatch.player1seed = mainArr[arrPos];
+          extMatch.player2seed = extArr[arrPos];
+          extMatch.division = match.division;
+          extMatch.main = false;
+          extMatch.goesTo = mainHeatChk;
+          extMatch.goesToPos = 'upper';
+          // extMatchCt++;
+        }
+        if (mainArr.includes(match.player2seed)) {
+          console.log('match.player2seed', match.player2seed);
+
+          const arrPos = mainArr.indexOf(match.player2seed);
+          match.player2seed = '';
+          match.getFrom = extMatchCt;
+          extMatch.player1seed = mainArr[arrPos];
+          extMatch.player2seed = extArr[arrPos];
+          extMatch.division = match.division;
+          extMatch.main = false;
+          extMatch.goesTo = mainHeatChk;
+          extMatch.goesToPos = 'lower';
+          // mainHeatChk++;
+          // extMatchCt++;
+        }
+      }
+    });
+  });
 
   return matchObj;
 };

@@ -12,12 +12,12 @@ module.exports = function addMainCoords(matchObj, init) {
         (init.box.rndWid + init.box.svgWid);
 
       const heat = _.find(init.heats, { heat: match.heat });
-      const heatSectMids = init.box.height / heat.noMatch / 2;
+      const heatSectMids = init.box.height / heat.noMatch;
       const heatArr = heat.matches.sort(function(a, b) {
         return a - b;
       });
       const matchHeatArrPos = heatArr.indexOf(match.match) + 1;
-      const matchHeatColPos = matchHeatArrPos * heatSectMids;
+      const matchHeatColPos = matchHeatArrPos * heatSectMids - heatSectMids / 2;
       match.yLoc = matchHeatColPos - init.box.rndHgt / 2;
     }
   });
