@@ -5,7 +5,7 @@ import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateSidebar extends Component {
   componentWillMount() {
-    this.props.dispatch(Create.updateNoOfPlayers(15));
+    this.props.dispatch(Create.updateNoOfPlayers(11));
   }
 
   updateNumber(event) {

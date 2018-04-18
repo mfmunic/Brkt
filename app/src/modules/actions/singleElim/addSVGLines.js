@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-//Takes in matches object and adds extra player seeds
+//Takes in matches object and returns an array of svg lines
 //-------------------------------------------------------------------------------
 
 const _ = require('lodash');

@@ -16,6 +16,7 @@ class CreateBracketWindow extends Component {
           {_.map(brktInfo.matches, match => {
             return <CreateMatch key={match.match} data={match} />;
           })}
+          <svg id="svgBox" width={bBoxStyle.width} height={bBoxStyle.height} />
         </div>
       </div>
     );

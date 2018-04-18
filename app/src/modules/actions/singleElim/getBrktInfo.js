@@ -16,15 +16,12 @@ module.exports = function getBrktInfo(seeds) {
   const matches = createMatchObject(initObj);
   addMainMatches(matches, initObj);
 
-  if (initObj.extra > 0) {
-    addExtraMatches(matches, initObj);
-  }
-
   initObj.box = createBox(initObj);
 
   addMainCoords(matches, initObj);
 
   if (initObj.extra > 0) {
+    addExtraMatches(matches, initObj);
     addExtCoords(matches, initObj);
   }
 
@@ -35,6 +32,6 @@ module.exports = function getBrktInfo(seeds) {
     ...initObj,
     matches
   };
-  // console.log(brktInfo);
+  console.log(brktInfo);
   return brktInfo;
 };
