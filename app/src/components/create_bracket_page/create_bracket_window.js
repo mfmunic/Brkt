@@ -10,13 +10,32 @@ class CreateBracketWindow extends Component {
       width: brktInfo.box.width,
       height: brktInfo.box.height
     };
+    const polylineStyle = {
+      fill: 'none',
+      stroke: 'black'
+    };
     return (
       <div className="brktWindow col-sm-9 align-self-start">
         <div className="brktBox" id="bBox" style={bBoxStyle}>
           {_.map(brktInfo.matches, match => {
-            return <CreateMatch key={match.match} data={match} />;
+            return (
+              <CreateMatch
+                key={match.match}
+                data={{
+                  ...match,
+                  width: brktInfo.box.rndWid,
+                  height: brktInfo.box.rndHgt
+                }}
+              />
+            );
           })}
-          <svg id="svgBox" width={bBoxStyle.width} height={bBoxStyle.height} />
+          <svg id="svgBox" width={bBoxStyle.width} height={bBoxStyle.height}>
+            {_.map(brktInfo.svgArr, (line, index) => {
+              return (
+                <polyline points={line} key={index} style={polylineStyle} />
+              );
+            })}
+          </svg>
         </div>
       </div>
     );

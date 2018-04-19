@@ -7,6 +7,7 @@ const addExtraMatches = require('./addExtraMatches');
 const createBox = require('./createBox');
 const addMainCoords = require('./addMainCoords');
 const addExtCoords = require('./addExtCoords');
+const addSVGLines = require('./addSVGLines');
 
 module.exports = function getBrktInfo(seeds) {
   const initObj = createInitObj(seeds);
@@ -25,8 +26,7 @@ module.exports = function getBrktInfo(seeds) {
     addExtCoords(matches, initObj);
   }
 
-  //TODO: addSVGMainlines
-  //TODO: addSVGExtralines
+  initObj.svgArr = addSVGLines(matches, initObj);
 
   const brktInfo = {
     ...initObj,

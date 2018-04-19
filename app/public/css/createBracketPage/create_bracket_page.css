@@ -44,24 +44,17 @@
 }
 
 .match {
-  width: 196px;
-  height: 46px;
+  /* width: 196px; */
+  /* height: 46px; */
   background-color: #fff;
-  border: 2px solid black;
+  border: 1px solid grey;
   position: absolute;
 }
 
 polyline {
-  fill: none;
   stroke: black;
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-linejoin: round;
-}
-
-.svgLine {
-  fill: none;
-  stroke: black;
-  stroke-width: 3;
 }
 
 /*individual rounds*/
