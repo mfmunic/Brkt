@@ -44,11 +44,10 @@
 }
 
 .match {
-  /* width: 196px; */
-  /* height: 46px; */
   background-color: #fff;
   border: 1px solid grey;
   position: absolute;
+  display: flex;
 }
 
 polyline {
@@ -58,7 +57,19 @@ polyline {
 }
 
 /*individual rounds*/
-.play1 {
+.col-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.matchNo {
+  border-right: 1px solid grey;
+  text-align: center;
+}
+
+.seeds {
+  border-right: 1px solid grey;
+}
+/* .play1 {
   height: 50%;
   border-bottom: 1px solid black;
   display: flex;
@@ -67,14 +78,11 @@ polyline {
   height: 50%;
   display: flex;
 }
-
+*/
 .seed1 {
-  border-right: 1px solid black;
-  width: 15%;
-  text-align: center;
-  padding-top: 2px;
+  border-bottom: 1px solid black;
 }
-
+/*
 .seed2 {
   border-right: 1px solid black;
   width: 15%;
@@ -94,4 +102,4 @@ polyline {
   width: 85%;
   text-align: center;
   padding-top: 2px;
-}
+} */

@@ -20,13 +20,14 @@ class CreateMatch extends Component {
     };
     return (
       <div className="match" id={`match${match}`} style={matchStyle}>
-        <div>
-          <div>{player1seed}</div>
-          <div>{player2seed}</div>
+        <div className="matchNo col-2">{match}</div>
+        <div className="seeds col-2">
+          <div className="seed1">{player1seed}</div>
+          <div className="seed2">{player2seed}</div>
         </div>
-        <div>
-          <div>{match}</div>
-          <div>{player2seed}</div>
+        <div className="players col-8">
+          <div className="play1" />
+          <div className="play2" />
         </div>
       </div>
     );

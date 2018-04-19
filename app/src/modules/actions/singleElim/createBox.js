@@ -12,9 +12,9 @@ module.exports = function findBox(init) {
   const rndHgt = 55;
   const svgWid = 20;
   const width = heats * rndWid + (heats - 1) * svgWid;
-  let height = main / 2 * rndHgt + rndHgt * 1.5;
+  let height = main / 2 * rndHgt + rndHgt * 3;
   if (extra > main / 2) {
-    height = main * rndHgt;
+    height = main * rndHgt + rndHgt * 2;
   }
   const box = {
     width: width,
