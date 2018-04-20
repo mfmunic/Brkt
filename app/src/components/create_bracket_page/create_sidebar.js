@@ -5,7 +5,7 @@ import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateSidebar extends Component {
   componentWillMount() {
-    this.props.dispatch(Create.updateNoOfPlayers(11));
+    this.props.dispatch(Create.updateNoOfPlayers(16));
   }
 
   updateNumber(event) {
@@ -69,7 +69,7 @@ class CreateSidebar extends Component {
                 className="form-control"
                 id="playNames"
                 type="text"
-                onChange={this.updateNames.bind(this)}
+                // onChange={this.updateNames.bind(this)}
               />
             </div>
           )}

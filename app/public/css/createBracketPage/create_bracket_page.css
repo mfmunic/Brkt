@@ -12,12 +12,12 @@
   flex-direction: column;
 } */
 
-#inputSel {
+/* #inputSel {
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 10px;
-}
+} */
 
 .form-group {
   margin: 0 auto;
@@ -48,6 +48,8 @@
   border: 1px solid grey;
   position: absolute;
   display: flex;
+  flex-wrap: wrap;
+  box-shadow: 1px 1px 3px grey;
 }
 
 polyline {
@@ -62,25 +64,40 @@ polyline {
   padding-right: 0;
 }
 .matchNo {
-  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
   text-align: center;
+  font-size: 10px;
+  height: 18px;
+  width: 100%;
 }
 
 .seeds {
   border-right: 1px solid grey;
+  height: 50px;
+  width: 32px;
+  text-align: center;
+  display: inline;
 }
-/* .play1 {
+
+.players {
+  /* display: inline-flex; */
+  width: 166px;
+}
+.play1 {
   height: 50%;
+  width: 100%;
   border-bottom: 1px solid black;
-  display: flex;
 }
+
 .play2 {
   height: 50%;
+  width: 100%;
   display: flex;
 }
-*/
+
 .seed1 {
   border-bottom: 1px solid black;
+  height: 25px;
 }
 /*
 .seed2 {
