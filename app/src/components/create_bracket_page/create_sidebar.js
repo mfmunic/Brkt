@@ -32,7 +32,7 @@ class CreateSidebar extends Component {
         <div id="inputSel">
           <div id="highlight" />
 
-          <p className="switch__label">Number</p>
+          <p className="switch_label">Number</p>
 
           <label className="switch">
             <input
@@ -44,7 +44,7 @@ class CreateSidebar extends Component {
             <span className="slider" />
           </label>
 
-          <p className="switch__label">Names</p>
+          <p className="switch_label">Names</p>
         </div>
 
         <div className="form-group">
