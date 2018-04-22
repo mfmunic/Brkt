@@ -35,14 +35,6 @@
   position: relative;
 }
 
-#playNames {
-  height: 0;
-  width: 175px;
-  margin: 20px auto;
-  resize: none;
-  transition: 0.5s;
-}
-
 .match {
   background-color: #fff;
   border: 1px solid grey;
@@ -76,7 +68,6 @@ polyline {
   height: 50px;
   width: 32px;
   text-align: center;
-  display: inline;
 }
 
 .players {
@@ -87,12 +78,14 @@ polyline {
   height: 50%;
   width: 100%;
   border-bottom: 1px solid black;
+  padding-left: 6px;
 }
 
 .play2 {
   height: 50%;
   width: 100%;
   display: flex;
+  padding-left: 6px;
 }
 
 .seed1 {

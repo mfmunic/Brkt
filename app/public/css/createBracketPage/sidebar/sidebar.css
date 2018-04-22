@@ -4,3 +4,8 @@
   align-items: center;
   margin-bottom: 10px;
 }
+
+#playNames {
+  resize: none;
+  transition: 0.5s;
+}

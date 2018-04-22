@@ -18,13 +18,18 @@ export default function(state = initialState, action = {}) {
     case actionTypes.UPDATE_PLAYERNAMES:
       const noOfPlayers = action.payload.length;
       return {
+        ...state,
         noOfPlayers: noOfPlayers,
-        playerNames: action.payload
+        playerNames: action.payload.arrPlayers,
+        brktInfo: action.payload.brktInfo
       };
 
     case actionTypes.SWITCH_INPUT_TYPE:
       return {
-        inputSwitch: action.payload
+        ...state,
+        inputSwitch: action.payload.inputType,
+        noOfPlayers: action.payload.noOfPlayers,
+        playerNames: action.payload.playerNames
       };
 
     default:
