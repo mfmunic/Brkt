@@ -5,11 +5,11 @@ import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateSidebar extends Component {
   componentWillMount() {
-    this.props.dispatch(Create.updatePlayerNames('Marc\nEmily\nBennett\nIndy'));
+    // this.props.dispatch(Create.updatePlayerNames('Marc\nEmily\nBennett\nIndy'));
+    this.props.dispatch(Create.updateNoOfPlayers(0));
   }
 
   updateNumber(event) {
-    console.log('here');
     if (event.target.value > 1) {
       this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
     }
