@@ -10,28 +10,35 @@ const addExtCoords = require('./addExtCoords');
 const addSVGLines = require('./addSVGLines');
 
 module.exports = function getBrktInfo(seeds) {
-  const initObj = createInitObj(seeds);
+  let brktInfo = { box: {} };
+  if (seeds === 0) {
+    brktInfo.box.width = 100;
+    brktInfo.box.height = 100;
+    return brktInfo;
+  } else {
+    const initObj = createInitObj(seeds);
 
-  initObj.heats = getHeatsInfo(initObj);
+    initObj.heats = getHeatsInfo(initObj);
 
-  const matches = createMatchObject(initObj);
-  addMainMatches(matches, initObj);
+    const matches = createMatchObject(initObj);
+    addMainMatches(matches, initObj);
 
-  initObj.box = createBox(initObj);
+    initObj.box = createBox(initObj);
 
-  addMainCoords(matches, initObj);
+    addMainCoords(matches, initObj);
 
-  if (initObj.extra > 0) {
-    addExtraMatches(matches, initObj);
-    addExtCoords(matches, initObj);
+    if (initObj.extra > 0) {
+      addExtraMatches(matches, initObj);
+      addExtCoords(matches, initObj);
+    }
+
+    initObj.svgArr = addSVGLines(matches, initObj);
+
+    brktInfo = {
+      ...initObj,
+      matches
+    };
+    console.log(brktInfo);
+    return brktInfo;
   }
-
-  initObj.svgArr = addSVGLines(matches, initObj);
-
-  const brktInfo = {
-    ...initObj,
-    matches
-  };
-  console.log(brktInfo);
-  return brktInfo;
 };

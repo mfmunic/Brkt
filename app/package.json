@@ -19,7 +19,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "./node_modules/.bin/jasmine-node src/test/CBspec.js --verbose",
+    "test": "jest",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.4.2",
+    "jest": "^23.5.0"
   }
 }

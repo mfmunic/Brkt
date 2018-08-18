@@ -15,7 +15,7 @@ class CreateBracketWindow extends Component {
       stroke: 'black'
     };
     return (
-      <div className="brktWindow col-sm-9 align-self-start">
+      <div className="brktWindow col-sm align-self-start">
         <div className="brktBox" id="bBox" style={bBoxStyle}>
           {_.map(brktInfo.matches, match => {
             return (

@@ -10,7 +10,9 @@ class CreateMatch extends Component {
       height,
       match,
       player1seed,
-      player2seed
+      player2seed,
+      player1Name,
+      player2Name
     } = this.props.data;
     const matchStyle = {
       top: yLoc,
@@ -20,14 +22,14 @@ class CreateMatch extends Component {
     };
     return (
       <div className="match" id={`match${match}`} style={matchStyle}>
-        <div className="matchNo col-2">{match}</div>
-        <div className="seeds col-2">
+        <div className="matchNo">Match {match}</div>
+        <div className="seeds">
           <div className="seed1">{player1seed}</div>
           <div className="seed2">{player2seed}</div>
         </div>
-        <div className="players col-8">
-          <div className="play1" />
-          <div className="play2" />
+        <div className="players">
+          <div className="play1">{player1Name}</div>
+          <div className="play2">{player2Name}</div>
         </div>
       </div>
     );

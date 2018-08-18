@@ -1,10 +1,12 @@
 //-------------------------------------------------------
 //break down of which matches are in which heat
 //-------------------------------------------------------
+
 module.exports = function getHeatsInfo(init) {
-  const main = init.main;
-  const extra = init.extra;
-  const heatsTotal = init.heatsTotal;
+  // const main = init.main;
+  // const extra = init.extra;
+  // const heatsTotal = init.heatsTotal;
+  const { main, extra, heatsTotal } = init;
   let matchTotal = init.matchesTotal;
   let noOfMatches = 1;
   let heats = [];
@@ -32,11 +34,15 @@ module.exports = function getHeatsInfo(init) {
       matchTotal--;
     }
 
+    function sortNumber(a, b) {
+      return a - b;
+    }
+    heat.matches.sort(sortNumber);
+
     heats.push(heat);
     noOfMatches *= 2;
   }
 
+  console.log(heats);
   return heats;
 };
-
-// module.exports = { getHeatsInfo };
