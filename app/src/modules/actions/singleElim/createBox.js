@@ -2,9 +2,8 @@
 //create the box that bracket will be built in
 //-------------------------------------------------------
 module.exports = function findBox(init) {
-  const { main, extra, matchesTotal } = init;
-  const heats = init.heats.length;
-  // const extra = init.extra;
+  const { main, extra, heatsTotal } = init;
+
   //for now calling the width of each round 200px height 50px
   //width of lines 10px;
   //subject to change
@@ -12,7 +11,7 @@ module.exports = function findBox(init) {
   const rndHgt = 70;
   const svgWid = 20;
   const extHgt = 40;
-  const width = heats * rndWid + (heats - 1) * svgWid;
+  const width = heatsTotal * rndWid + (heatsTotal - 1) * svgWid;
   let height = (main / 2) * rndHgt + rndHgt;
   if (extra > main / 2) {
     height = main * rndHgt + extHgt * (main / 2);
