@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import logo from './logo.svg';
+
 import './css/App.css';
 import NewPublisher from './components/new_publisher/NewPublisher';
 import Routes from './components/publisher_routes/Routes';

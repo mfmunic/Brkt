@@ -3,9 +3,6 @@
 //-------------------------------------------------------
 
 module.exports = function getHeatsInfo(init) {
-  // const main = init.main;
-  // const extra = init.extra;
-  // const heatsTotal = init.heatsTotal;
   const { main, extra, heatsTotal } = init;
   let matchTotal = init.matchesTotal;
   let noOfMatches = 1;
@@ -43,6 +40,5 @@ module.exports = function getHeatsInfo(init) {
     noOfMatches *= 2;
   }
 
-  console.log(heats);
   return heats;
 };

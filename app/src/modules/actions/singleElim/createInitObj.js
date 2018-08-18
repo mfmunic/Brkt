@@ -2,6 +2,9 @@
 //This will take the seed number and create an init object
 //-------------------------------------------------------------------------------
 
+const createBox = require('./createBox');
+const getHeatsInfo = require('./getHeatsInfo');
+
 module.exports = function createInitObj(seeds) {
   // main is the number of players for the first full heat
   let main = 0;
@@ -27,5 +30,9 @@ module.exports = function createInitObj(seeds) {
     heatsTotal,
     matchesTotal: seeds - 1
   };
+
+  initObj.heats = getHeatsInfo(initObj);
+  initObj.box = createBox(initObj);
+
   return initObj;
 };

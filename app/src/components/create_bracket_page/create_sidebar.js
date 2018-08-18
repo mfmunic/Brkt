@@ -23,8 +23,18 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.switchInput(event.target.value, noOf, names));
   }
 
+  createBracket(brktInfo, event) {
+    this.props.dispatch(Create.addBrkt(brktInfo));
+  }
+
   render() {
-    const { inputSwitch, playerNames, noOfPlayers } = this.props.createBracket;
+    // onClick={() => this.createBracket()}
+    const {
+      inputSwitch,
+      playerNames,
+      noOfPlayers,
+      brktInfo
+    } = this.props.createBracket;
     return (
       <nav className="col-lg-2 d-none d-md-block bg-light sidebar">
         <h1>Tournament Bracket Generator</h1>
@@ -63,7 +73,8 @@ class CreateSidebar extends Component {
               <label htmlFor="playNames">
                 Type names of contestants seperated by{' '}
                 <strong>
-                  Enter<i className="material-icons md-18">keyboard_return</i>
+                  Enter
+                  <i className="material-icons md-18">keyboard_return</i>
                 </strong>
               </label>
               <textarea
@@ -75,7 +86,11 @@ class CreateSidebar extends Component {
               />
             </div>
           )}
-          <button className="btn btn-primary" id="createBtn" type="submit">
+          <button
+            className="btn btn-primary"
+            id="createBtn"
+            type="submit"
+            onClick={this.createBracket.bind(this, brktInfo)}>
             Create
           </button>
         </div>

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import getBrktInfo from './singleElim/getBrktInfo.js';
 import addNames from './singleElim/addNames.js';
+import { brktRef } from '../../config/firebase';
 
 export function updateNoOfPlayers(noOfPlayers) {
   const brktInfo = getBrktInfo(noOfPlayers);
@@ -42,3 +43,28 @@ export function switchInput(inputType, noOfPlayers, playerNames) {
     payload: { inputType, noOfPlayers, playerNames }
   };
 }
+
+//firbase specific
+
+export function addBrkt(newBrkt) {
+  brktRef.push().set(newBrkt);
+  return {
+    type: actionTypes.PUBLISHED_BRKT,
+    payload: newBrkt
+  };
+}
+
+// --- not actually for this file
+// export const completeToDo = completeToDoId => async dispatch => {
+//   todosRef.child(completeToDoId).remove();
+// };
+
+// export const fetchToDos = () => async dispatch => {
+//   todosRef.on('value', snapshot => {
+//     dispatch({
+//       type: FETCH_TODOS,
+//       payload: snapshot.val()
+//     });
+//   });
+// };
+// --- not actually for this file
