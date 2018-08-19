@@ -11,7 +11,7 @@ class CreateCreateButton extends Component {
     const { brktInfo } = this.props.createBracket;
 
     const { owned } = this.props.brktsOwned;
-    const brktNo = (owned.length = 0 ? 0 : owned.length + 1);
+    const brktNo = owned.length;
     console.log(brktNo);
 
     return (
@@ -20,7 +20,7 @@ class CreateCreateButton extends Component {
         id="createBtn"
         type="submit"
         onClick={this.createBracket.bind(this, brktInfo, brktNo)}>
-        Create
+        Create Bracket
       </button>
     );
   }
