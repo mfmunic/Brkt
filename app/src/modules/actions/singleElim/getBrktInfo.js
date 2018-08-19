@@ -8,7 +8,7 @@ const addSVGLines = require('./addSVGLines');
 
 module.exports = function getBrktInfo(seeds) {
   let brktInfo = { box: {} };
-  if (seeds === 0) {
+  if (seeds < 2) {
     brktInfo.box.width = 100;
     brktInfo.box.height = 100;
     return brktInfo;

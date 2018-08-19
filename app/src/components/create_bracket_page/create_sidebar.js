@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-// import { Link } from 'react-router-dom';
 import * as Create from '../../modules/actions/createBracketPageActions';
+import CreateCreateButton from './create_create_button';
 
 class CreateSidebar extends Component {
   componentWillMount() {
-    // this.props.dispatch(Create.updatePlayerNames('Marc\nEmily\nBennett\nIndy'));
     this.props.dispatch(Create.updateNoOfPlayers(0));
   }
 
   updateNumber(event) {
-    if (event.target.value > 1) {
-      this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
-    }
+    // if (event.target.value > 1) {
+    this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+    // }
   }
 
   updateNames(event) {
@@ -24,23 +22,8 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.switchInput(event.target.value, noOf, names));
   }
 
-  createBracket(brktInfo, brktNo, event) {
-    this.props.dispatch(Create.addBrkt(brktInfo, brktNo));
-  }
-
   render() {
-    // onClick={() => this.createBracket()}
-    const {
-      inputSwitch,
-      playerNames,
-      noOfPlayers,
-      brktInfo
-    } = this.props.createBracket;
-
-    const brktsOwned = this.props.brktsOwned;
-    const brktObjArr = [];
-    _.forEach(brktsOwned, value => brktObjArr.push(value));
-    const brktNo = brktObjArr.length - 1;
+    const { inputSwitch, playerNames, noOfPlayers } = this.props.createBracket;
 
     return (
       <nav className="col-lg-2 d-none d-md-block bg-light sidebar">
@@ -93,13 +76,8 @@ class CreateSidebar extends Component {
               />
             </div>
           )}
-          <button
-            className="btn btn-primary"
-            id="createBtn"
-            type="submit"
-            onClick={this.createBracket.bind(this, brktInfo, brktNo)}>
-            Create
-          </button>
+
+          {noOfPlayers > 1 ? <CreateCreateButton /> : ''}
         </div>
       </nav>
     );
