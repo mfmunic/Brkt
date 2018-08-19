@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 // import { Link } from 'react-router-dom';
 import * as Create from '../../modules/actions/createBracketPageActions';
 
@@ -24,8 +23,8 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.switchInput(event.target.value, noOf, names));
   }
 
-  createBracket(brktInfo, brktNo, event) {
-    this.props.dispatch(Create.addBrkt(brktInfo, brktNo));
+  createBracket(brktInfo, event) {
+    this.props.dispatch(Create.addBrkt(brktInfo));
   }
 
   render() {
@@ -36,12 +35,6 @@ class CreateSidebar extends Component {
       noOfPlayers,
       brktInfo
     } = this.props.createBracket;
-
-    const brktsOwned = this.props.brktsOwned;
-    const brktObjArr = [];
-    _.forEach(brktsOwned, value => brktObjArr.push(value));
-    const brktNo = brktObjArr.length - 1;
-
     return (
       <nav className="col-lg-2 d-none d-md-block bg-light sidebar">
         <h1>Tournament Bracket Generator</h1>
@@ -97,7 +90,7 @@ class CreateSidebar extends Component {
             className="btn btn-primary"
             id="createBtn"
             type="submit"
-            onClick={this.createBracket.bind(this, brktInfo, brktNo)}>
+            onClick={this.createBracket.bind(this, brktInfo)}>
             Create
           </button>
         </div>
@@ -108,8 +101,7 @@ class CreateSidebar extends Component {
 
 function mapStateToProps(state) {
   return {
-    createBracket: state.createBracket,
-    brktsOwned: state.brktsOwned
+    createBracket: state.createBracket
   };
 }
 

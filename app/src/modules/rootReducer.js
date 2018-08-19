@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import appReducer from './appReducer';
 import createBracketReducer from './reducers/createBracketPageReducers';
+import adminBracketReducer from './reducers/adminBracketPageReducers';
 
 export default combineReducers({
   routing: routerReducer,
-  app: appReducer,
-  createBracket: createBracketReducer
+  createBracket: createBracketReducer,
+  brktsOwned: adminBracketReducer
 });

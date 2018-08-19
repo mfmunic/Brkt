@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import getBrktInfo from './singleElim/getBrktInfo.js';
 import addNames from './singleElim/addNames.js';
-import { brktRef } from '../../config/firebase';
+import setBrkts from './firebase/setBrkts';
 
 export function updateNoOfPlayers(noOfPlayers) {
   const brktInfo = getBrktInfo(noOfPlayers);
@@ -46,8 +46,8 @@ export function switchInput(inputType, noOfPlayers, playerNames) {
 
 //firbase specific
 
-export function addBrkt(newBrkt) {
-  brktRef.push().set(newBrkt);
+export function addBrkt(newBrkt, brktNo) {
+  setBrkts(newBrkt, brktNo);
   return {
     type: actionTypes.PUBLISHED_BRKT,
     payload: newBrkt

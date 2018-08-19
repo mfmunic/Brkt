@@ -1,8 +1,8 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 
 import config from './keys';
 
 firebase.initializeApp(config);
 
-const databaseRef = firebase.database().ref();
-export const brktRef = databaseRef.child('brkts');
+export const brktRef = firebase.database().ref();
