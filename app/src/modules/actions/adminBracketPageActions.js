@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import readBrkts from './firebase/readBrkts';
+import removeBrkts from './firebase/removeBrkts';
 
 export function fetchBrkts() {
   let brkts = readBrkts();
@@ -10,17 +11,10 @@ export function fetchBrkts() {
   };
 }
 
-// --- not actually for this file
-// export const completeToDo = completeToDoId => async dispatch => {
-//   todosRef.child(completeToDoId).remove();
-// };
-
-// export const fetchToDos = () => async dispatch => {
-//   todosRef.on('value', snapshot => {
-//     dispatch({
-//       type: FETCH_TODOS,
-//       payload: snapshot.val()
-//     });
-//   });
-// };
-// --- not actually for this file
+export function deleteBrkts(key) {
+  removeBrkts(key);
+  return {
+    type: actionTypes.DELETE_BRKTS,
+    payload: key
+  };
+}

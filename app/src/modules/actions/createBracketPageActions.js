@@ -46,8 +46,8 @@ export function switchInput(inputType, noOfPlayers, playerNames) {
 
 //firbase specific
 
-export function addBrkt(newBrkt, brktNo) {
-  setBrkts(newBrkt, brktNo);
+export function addBrkt(newBrkt) {
+  setBrkts(newBrkt);
   return {
     type: actionTypes.PUBLISHED_BRKT,
     payload: newBrkt

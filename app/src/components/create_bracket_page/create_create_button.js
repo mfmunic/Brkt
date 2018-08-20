@@ -3,23 +3,19 @@ import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateCreateButton extends Component {
-  createBracket(brktInfo, brktNo, event) {
-    this.props.dispatch(Create.addBrkt(brktInfo, brktNo));
+  createBracket(brktInfo, event) {
+    this.props.dispatch(Create.addBrkt(brktInfo));
   }
 
   render() {
     const { brktInfo } = this.props.createBracket;
-
-    const { owned } = this.props.brktsOwned;
-    const brktNo = owned.length;
-    console.log(brktNo);
 
     return (
       <button
         className="btn btn-primary"
         id="createBtn"
         type="submit"
-        onClick={this.createBracket.bind(this, brktInfo, brktNo)}>
+        onClick={this.createBracket.bind(this, brktInfo)}>
         Create Bracket
       </button>
     );
@@ -28,8 +24,7 @@ class CreateCreateButton extends Component {
 
 function mapStateToProps(state) {
   return {
-    createBracket: state.createBracket,
-    brktsOwned: state.brktsOwned
+    createBracket: state.createBracket
   };
 }
 
