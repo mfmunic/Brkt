@@ -15,7 +15,6 @@ export default function(state = initialState, action = {}) {
       };
 
     case `${actionTypes.DELETE_BRKTS}`:
-      console.log(state.owned);
       const keyIndex = _.findIndex(state.owned, ['key', action.payload]);
       _.pullAt(state.owned, keyIndex);
 
