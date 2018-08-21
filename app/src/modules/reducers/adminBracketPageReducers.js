@@ -6,12 +6,13 @@ const initialState = { owned: [] };
 export default function(state = initialState, action = {}) {
   switch (action.type) {
     case `${actionTypes.FETCH_BRKTS}_FULFILLED`:
+      const owned = [];
       _.forEach(action.payload, (value, key) => {
-        initialState.owned.push({ key: key, boxProps: value });
+        owned.push({ key: key, boxProps: value });
       });
 
       return {
-        ...initialState
+        owned
       };
 
     case `${actionTypes.DELETE_BRKTS}`:

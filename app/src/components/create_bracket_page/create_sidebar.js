@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
 import CreateCreateButton from './create_create_button';
+import CreateCancelButton from './create_cancel_button';
 
 class CreateSidebar extends Component {
   componentWillMount() {
@@ -9,9 +10,7 @@ class CreateSidebar extends Component {
   }
 
   updateNumber(event) {
-    // if (event.target.value > 1) {
     this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
-    // }
   }
 
   updateNames(event) {
@@ -78,6 +77,7 @@ class CreateSidebar extends Component {
           )}
 
           {noOfPlayers > 1 ? <CreateCreateButton /> : ''}
+          <CreateCancelButton />
         </div>
       </nav>
     );
