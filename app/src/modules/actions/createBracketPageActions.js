@@ -3,6 +3,13 @@ import getBrktInfo from './singleElim/getBrktInfo.js';
 import addNames from './singleElim/addNames.js';
 import setBrkts from './firebase/setBrkts';
 
+export function updateTorName(brktName) {
+  return {
+    type: actionTypes.UPDATE_TOR_NAME,
+    payload: brktName
+  };
+}
+
 export function updateNoOfPlayers(noOfPlayers) {
   const brktInfo = getBrktInfo(noOfPlayers);
   return {
@@ -46,11 +53,12 @@ export function switchInput(inputType, noOfPlayers, playerNames) {
 
 //firbase specific
 
-export function addBrkt(newBrkt) {
-  setBrkts(newBrkt);
+export function addBrkt(newBrkt, brktName) {
+  const brkt = { brktInfo: newBrkt, brktName };
+  setBrkts(brkt);
   return {
     type: actionTypes.PUBLISHED_BRKT,
-    payload: newBrkt
+    payload: brkt
   };
 }
 

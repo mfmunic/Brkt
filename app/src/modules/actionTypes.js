@@ -4,3 +4,4 @@ export const SWITCH_INPUT_TYPE = 'SWITCH_INPUT_TYPE';
 export const PUBLISHED_BRKT = 'PUBLISHED_BRKT';
 export const FETCH_BRKTS = 'FETCH_BRKTS';
 export const DELETE_BRKTS = 'DELETE_BRKTS';
+export const UPDATE_TOR_NAME = 'UPDATE_TOR_NAME';

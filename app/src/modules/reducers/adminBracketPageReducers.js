@@ -8,7 +8,11 @@ export default function(state = initialState, action = {}) {
     case `${actionTypes.FETCH_BRKTS}_FULFILLED`:
       const owned = [];
       _.forEach(action.payload, (value, key) => {
-        owned.push({ key: key, boxProps: value });
+        owned.push({
+          key: key,
+          brktInfo: value.brktInfo,
+          brktName: value.brktName
+        });
       });
 
       return {

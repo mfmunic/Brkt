@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import CreateMatch from './create_matches';
+import CreateHeader from './create_header';
 
 class CreateBracketWindow extends Component {
   render() {
@@ -16,6 +17,7 @@ class CreateBracketWindow extends Component {
     };
     return (
       <div className="brktWindow col-sm align-self-start">
+        <CreateHeader />
         <div className="brktBox" id="bBox" style={bBoxStyle}>
           {_.map(brktInfo.matches, match => {
             return (

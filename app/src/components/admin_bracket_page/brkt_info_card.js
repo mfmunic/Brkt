@@ -11,8 +11,8 @@ class BrktInfoCard extends Component {
     const own = this.props.data;
     return (
       <div className="card col-sm-12">
-        <p>Total Players: {own.boxProps.total}</p>
-        <p>Key: {own.key}</p>
+        <p>Total Players: {own.brktInfo.total}</p>
+        <p>Name: {own.brktName}</p>
         <button
           className="btn btn-primary"
           onClick={this.deleteBracket.bind(this, own.key)}>

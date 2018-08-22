@@ -25,14 +25,15 @@
 }
 
 .brktWindow {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
+  /* height: 100vh; */
+  /* display: flex; */
+  /* justify-content: center; */
   overflow: auto;
 }
 
 .brktBox {
   position: relative;
+  margin: 0 auto;
 }
 
 .match {
@@ -113,3 +114,7 @@ polyline {
   text-align: center;
   padding-top: 2px;
 } */
+
+#createHeader {
+  width: 100%;
+}

@@ -17,16 +17,35 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.updatePlayerNames(event.target.value));
   }
 
+  updateBrktName(event) {
+    this.props.dispatch(Create.updateTorName(event.target.value));
+  }
+
   switchInput(names, noOf, event) {
     this.props.dispatch(Create.switchInput(event.target.value, noOf, names));
   }
 
   render() {
-    const { inputSwitch, playerNames, noOfPlayers } = this.props.createBracket;
+    const {
+      inputSwitch,
+      playerNames,
+      noOfPlayers,
+      brktName
+    } = this.props.createBracket;
 
     return (
       <nav className="col-lg-2 d-none d-md-block bg-light sidebar">
         <h1>Tournament Bracket Generator</h1>
+
+        <div id="inputNo">
+          <p>Tournament Name</p>
+          <input
+            className="form-control"
+            id="brktName"
+            type="text"
+            onChange={this.updateBrktName.bind(this)}
+          />
+        </div>
 
         <div id="inputSel">
           <div id="highlight" />

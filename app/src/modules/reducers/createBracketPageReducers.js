@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
+  brktName: '',
   noOfPlayers: 0,
   playerNames: [],
   inputSwitch: 'Number'
@@ -8,6 +9,12 @@ const initialState = {
 
 export default function(state = initialState, action = {}) {
   switch (action.type) {
+    case actionTypes.UPDATE_TOR_NAME:
+      return {
+        ...state,
+        brktName: action.payload
+      };
+
     case actionTypes.UPDATE_NOOFPLAYERS:
       return {
         ...state,
