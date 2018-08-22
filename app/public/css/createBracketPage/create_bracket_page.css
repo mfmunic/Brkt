@@ -24,11 +24,22 @@
   padding-left: 10px;
 }
 
+#createHeader {
+  border-bottom: 1px solid black;
+  min-height: 49px;
+}
+
+#notSidebar {
+  width: 100%;
+  padding: 0;
+}
+
 .brktWindow {
   /* height: 100vh; */
   /* display: flex; */
   /* justify-content: center; */
   overflow: auto;
+  padding: 0;
 }
 
 .brktBox {

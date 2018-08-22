@@ -16,28 +16,30 @@ class CreateBracketWindow extends Component {
       stroke: 'black'
     };
     return (
-      <div className="brktWindow col-sm align-self-start">
+      <div id="notSidebar" className="col-lg-10">
         <CreateHeader />
-        <div className="brktBox" id="bBox" style={bBoxStyle}>
-          {_.map(brktInfo.matches, match => {
-            return (
-              <CreateMatch
-                key={match.match}
-                data={{
-                  ...match,
-                  width: brktInfo.box.rndWid,
-                  height: brktInfo.box.rndHgt
-                }}
-              />
-            );
-          })}
-          <svg id="svgBox" width={bBoxStyle.width} height={bBoxStyle.height}>
-            {_.map(brktInfo.svgArr, (line, index) => {
+        <div className="brktWindow col-sm align-self-start">
+          <div className="brktBox" id="bBox" style={bBoxStyle}>
+            {_.map(brktInfo.matches, match => {
               return (
-                <polyline points={line} key={index} style={polylineStyle} />
+                <CreateMatch
+                  key={match.match}
+                  data={{
+                    ...match,
+                    width: brktInfo.box.rndWid,
+                    height: brktInfo.box.rndHgt
+                  }}
+                />
               );
             })}
-          </svg>
+            <svg id="svgBox" width={bBoxStyle.width} height={bBoxStyle.height}>
+              {_.map(brktInfo.svgArr, (line, index) => {
+                return (
+                  <polyline points={line} key={index} style={polylineStyle} />
+                );
+              })}
+            </svg>
+          </div>
         </div>
       </div>
     );
