@@ -19,9 +19,15 @@ export function updateNoOfPlayers(noOfPlayers) {
 }
 
 export function updatePlayerNames(players) {
-  const arrPlayers = players.split('\n');
+  let arrPlayers = [];
+
+  if (players !== '') {
+    arrPlayers = players.split('\n');
+  }
+
   let brktInfo = getBrktInfo(arrPlayers.length);
   brktInfo = addNames(brktInfo, arrPlayers);
+
   return {
     type: actionTypes.UPDATE_PLAYERNAMES,
     payload: { arrPlayers, brktInfo }

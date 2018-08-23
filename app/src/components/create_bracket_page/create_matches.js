@@ -28,8 +28,12 @@ class CreateMatch extends Component {
           <div className="seed2">{player2seed}</div>
         </div>
         <div className="players">
-          <div className="play1">{player1Name}</div>
-          <div className="play2">{player2Name}</div>
+          <div className="play1">
+            {player1Name && player1Name.includes('<<') ? '' : player1Name}
+          </div>
+          <div className="play2">
+            {player1Name && player2Name.includes('<<') ? '' : player2Name}
+          </div>
         </div>
       </div>
     );
