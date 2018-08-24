@@ -3,17 +3,21 @@ import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
 import CreateCreateButton from './create_create_button';
 import CreateCancelButton from './create_cancel_button';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 class CreateSidebar extends Component {
   componentWillMount() {
+    this.props.dispatch(Create.resetState());
     this.props.dispatch(Create.updateNoOfPlayers(0));
-    this.props.dispatch(Create.updatePlayerNames(''));
-    this.props.dispatch(Create.switchInput('Names', 0, ''));
   }
 
   updateNumber(event) {
-    this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+    const noCheck = +event.target.value;
+    if (noCheck) {
+      this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+    } else {
+      this.props.dispatch(Create.updateNoOfPlayers(0));
+    }
   }
 
   updateNames(event) {
@@ -28,20 +32,21 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.switchInput(event.target.value, noOf, names));
   }
 
-  inputNames(names, event) {
-    names = _.map(names, (name, index) => {
-      if (name === '') {
-        name = `<<Player ${index + 1}>>`;
-        return name;
-      }
-    });
-    names = names.join('\n');
-    return names;
-  }
+  //REMOVE
+  // inputNames(names, event) {
+  //   names = _.map(names, (name, index) => {
+  //     if (name === '') {
+  //       name = `<<Player ${index + 1}>>`;
+  //     }
+  //     return name;
+  //   });
+  //   names = names.join('\n');
+  //   return names;
+  // }
 
   render() {
     const { inputSwitch, playerNames, noOfPlayers } = this.props.createBracket;
-    const names = this.inputNames(playerNames);
+    const names = playerNames.join('\n');
 
     return (
       <nav className="col-lg-2 d-none d-md-block bg-light sidebar">
@@ -84,6 +89,9 @@ class CreateSidebar extends Component {
                 id="noOfCont"
                 type="text"
                 onChange={this.updateNumber.bind(this)}
+                defaultValue={
+                  playerNames.length === 0 ? '' : playerNames.length
+                }
               />
             </div>
           ) : (

@@ -15,6 +15,12 @@ export default function(state = initialState, action = {}) {
         brktName: action.payload
       };
 
+    case actionTypes.RESET_CREATE_STATE:
+      return {
+        ...state,
+        ...initialState
+      };
+
     case actionTypes.UPDATE_NOOFPLAYERS:
       return {
         ...state,
@@ -23,7 +29,7 @@ export default function(state = initialState, action = {}) {
       };
 
     case actionTypes.UPDATE_PLAYERNAMES:
-      const noOfPlayers = action.payload.length;
+      const noOfPlayers = action.payload.arrPlayers.length;
       return {
         ...state,
         noOfPlayers: noOfPlayers,

@@ -2,11 +2,18 @@ import * as actionTypes from '../actionTypes';
 import getBrktInfo from './singleElim/getBrktInfo.js';
 import addNames from './singleElim/addNames.js';
 import setBrkts from './firebase/setBrkts';
+import _ from 'lodash';
 
 export function updateTorName(brktName) {
   return {
     type: actionTypes.UPDATE_TOR_NAME,
     payload: brktName
+  };
+}
+
+export function resetState() {
+  return {
+    type: actionTypes.RESET_CREATE_STATE
   };
 }
 
@@ -37,15 +44,22 @@ export function updatePlayerNames(players) {
 export function switchInput(inputType, noOfPlayers, playerNames) {
   if (inputType === 'Number') {
     inputType = 'Names';
+
+    playerNames = _.map(playerNames, (name, index) => {
+      if (name.includes('<<Player ') || name === '') {
+        name = `<<Player ${index + 1}>>`;
+      }
+      return name;
+    });
+
     if (noOfPlayers < playerNames.length) {
       const removePlayers = playerNames.length - noOfPlayers;
       for (let i = 0; i < removePlayers; i++) {
         playerNames.pop();
       }
     } else {
-      const addPlayers = noOfPlayers - playerNames.length;
-      for (let i = 0; i < addPlayers; i++) {
-        playerNames.push('');
+      for (let i = playerNames.length; i < noOfPlayers; i++) {
+        playerNames.push(`<<Player ${i + 1}>>`);
       }
     }
   } else {

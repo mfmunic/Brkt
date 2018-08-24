@@ -32,7 +32,7 @@ class CreateMatch extends Component {
             {player1Name && player1Name.includes('<<') ? '' : player1Name}
           </div>
           <div className="play2">
-            {player1Name && player2Name.includes('<<') ? '' : player2Name}
+            {player2Name && player2Name.includes('<<') ? '' : player2Name}
           </div>
         </div>
       </div>
