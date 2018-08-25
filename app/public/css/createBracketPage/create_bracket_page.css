@@ -1,41 +1,22 @@
 .cbrktpg {
   width: 100vw;
   height: 100vh;
+  display: flex;
 }
-
-/* #sidebar {
-  display: flex;
-  width: 250px;
-  height: 100vh;
-  background-color: blue;
-  align-items: center;
-  flex-direction: column;
-} */
-
-/* #inputSel {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 10px;
-} */
 
 .form-group {
   margin: 0 auto;
   padding-left: 10px;
 }
 
-#createHeader {
-  border-bottom: 1px solid black;
-  min-height: 49px;
-}
-
 #notSidebar {
   width: 100%;
   padding: 0;
+  height: 100vh;
 }
 
 .brktWindow {
-  /* height: 100vh; */
+  height: calc(100vh - 61px);
   /* display: flex; */
   /* justify-content: center; */
   overflow: auto;
@@ -125,7 +106,3 @@ polyline {
   text-align: center;
   padding-top: 2px;
 } */
-
-#createHeader {
-  width: 100%;
-}

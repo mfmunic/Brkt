@@ -3,7 +3,7 @@
   margin: 0 5px;
   position: relative;
   display: inline-block;
-  width: 50px;
+  width: 32px;
   height: 18px;
 }
 
@@ -49,7 +49,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(31px);
-  -ms-transform: translateX(31px);
-  transform: translateX(31px);
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
 }

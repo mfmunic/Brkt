@@ -8,16 +8,29 @@ class CreateCreateButton extends Component {
   }
 
   render() {
-    const { brktInfo, brktName } = this.props.createBracket;
+    const { brktInfo, brktName, noOfPlayers } = this.props.createBracket;
 
     return (
-      <button
-        className="btn btn-primary"
-        id="createBtn"
-        type="submit"
-        onClick={this.createBracket.bind(this, brktInfo, brktName)}>
-        Create Bracket
-      </button>
+      <div>
+        {noOfPlayers > 1 ? (
+          <button
+            className="btn btn-primary"
+            id="createBtn"
+            type="submit"
+            onClick={this.createBracket.bind(this, brktInfo, brktName)}>
+            Create Bracket
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary"
+            id="createBtn"
+            type="submit"
+            onClick={this.createBracket.bind(this, brktInfo, brktName)}
+            disabled>
+            Create Bracket
+          </button>
+        )}
+      </div>
     );
   }
 }

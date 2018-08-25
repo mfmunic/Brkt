@@ -11,7 +11,7 @@ class CreateBracketPage extends Component {
 
   render() {
     return (
-      <div className="row cbrktpg">
+      <div className="cbrktpg">
         <CreateSidebar />
         <CreateBracketWindow />
       </div>

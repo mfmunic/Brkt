@@ -1,6 +1,13 @@
+.sidebar {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+}
+
 #inputSel {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 10px auto;
   width: 100%;
@@ -9,4 +16,22 @@
 #playNames {
   resize: none;
   transition: 0.5s;
+}
+
+#title {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+#braTitle {
+  margin-left: 1em;
+}
+
+#genTitle {
+  margin-left: 2em;
+}
+
+#inputNo input {
+  width: 75px;
 }

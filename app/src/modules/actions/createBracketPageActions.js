@@ -1,8 +1,20 @@
+import _ from 'lodash';
+
 import * as actionTypes from '../actionTypes';
 import getBrktInfo from './singleElim/getBrktInfo.js';
 import addNames from './singleElim/addNames.js';
 import setBrkts from './firebase/setBrkts';
-import _ from 'lodash';
+import { tArr, bArr, gArr } from './utils/titleWords.js';
+
+export function randomTorName() {
+  const tWord = tArr[_.random(0, tArr.length - 1)].toUpperCase();
+  const bWord = bArr[_.random(0, bArr.length - 1)].toUpperCase();
+  const gWord = gArr[_.random(0, gArr.length - 1)].toUpperCase();
+  return {
+    type: actionTypes.UPDATE_TOR_NAME,
+    payload: `${tWord} ${bWord} ${gWord}`
+  };
+}
 
 export function updateTorName(brktName) {
   return {

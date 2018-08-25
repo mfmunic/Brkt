@@ -1,0 +1,59 @@
+#createHeader {
+  width: 100%;
+  border-bottom: 1px solid black;
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+#torName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 40%;
+}
+
+#torName p {
+  margin: 0 5px 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#brktName {
+  /* width: 25%; */
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  padding-left: 5px;
+}
+
+#brktName:hover {
+  border: 1px solid gray;
+}
+#brktName::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-style: italic;
+  color: lightgray;
+}
+#brktName::-moz-placeholder {
+  /* Firefox 19+ */
+  font-style: italic;
+  color: lightgray;
+}
+#brktName:-ms-input-placeholder {
+  /* IE 10+ */
+  font-style: italic;
+  color: lightgray;
+}
+#brktName:-moz-placeholder {
+  /* Firefox 18- */
+  font-style: italic;
+  color: lightgray;
+}
+
+#createHeaderBtns {
+  display: flex;
+  align-self: flex-end;
+}
