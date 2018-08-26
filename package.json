@@ -2,6 +2,7 @@
   "name": "v1",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mfmunic.github.io/Brkt/",
   "dependencies": {
     "eslint": "^4.17.0",
     "firebase": "^5.4.0",
