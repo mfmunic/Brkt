@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 class AdminUpdateButton extends Component {
   goToUpdate(history, key, event) {
-    this.props.history.push(`/update/${key}`);
+    this.props.history.push(`/update?brkt=${key}`);
   }
 
   render() {

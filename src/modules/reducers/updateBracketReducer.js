@@ -11,6 +11,7 @@ export default function(state = initialState, action = {}) {
       return {
         ...state,
         ...action.payload.brkt.brktInfo,
+        brktName: action.payload.brkt.brktName,
         brktKey: action.payload.key
       };
 

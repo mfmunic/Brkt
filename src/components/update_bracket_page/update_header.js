@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import CancelButton from '../utils/cancel_button';
 // import AdminCreateButton from './admin_create_button';
 import Title from '../utils/title';
 
@@ -9,6 +10,7 @@ class UpdateHeader extends Component {
     return (
       <nav className="nav">
         <Title />
+        <CancelButton />
       </nav>
     );
   }
