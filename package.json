@@ -6,6 +6,7 @@
   "dependencies": {
     "eslint": "^4.17.0",
     "firebase": "^5.4.0",
+    "gh-pages": "^1.2.0",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -18,6 +19,8 @@
     "redux-promise-middleware": "^5.0.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
