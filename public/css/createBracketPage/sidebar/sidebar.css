@@ -47,6 +47,10 @@
   width: 75px;
 }
 
+#inputNo input:active {
+  box-shadow: #897500;
+}
+
 .createIns {
   display: flex;
   align-items: center;

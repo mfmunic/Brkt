@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
+import Title from '../utils/title';
 // import _ from 'lodash';
 
 class CreateSidebar extends Component {
@@ -32,20 +33,7 @@ class CreateSidebar extends Component {
 
     return (
       <nav className="col-lg-2 d-none d-md-block sidebar">
-        <div id="title">
-          <h1 id="torTitle">
-            <strong>T</strong>
-            ournament
-          </h1>
-          <h1 id="braTitle">
-            <strong>B</strong>
-            racket
-          </h1>
-          <h1 id="genTitle">
-            <strong>G</strong>
-            enerator
-          </h1>
-        </div>
+        <Title />
 
         <div id="inputSel">
           <div id="highlight" />

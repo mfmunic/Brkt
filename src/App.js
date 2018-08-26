@@ -9,6 +9,7 @@ import {
 import './css/App.css';
 import CreateBracketPage from './components/create_bracket_page/create_bracket_page';
 import BrktAdmin from './components/admin_bracket_page/admin_bracket_page';
+import BrktUpdate from './components/update_bracket_page/update_bracket_page';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Switch>
           <Route path={'/create'} component={CreateBracketPage} />
           <Route path={'/admin'} component={BrktAdmin} />
+          <Route path={'/update'} component={BrktUpdate} />
           <Redirect to={'/admin'} />
         </Switch>
       </Router>

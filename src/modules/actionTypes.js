@@ -6,3 +6,4 @@ export const FETCH_BRKTS = 'FETCH_BRKTS';
 export const DELETE_BRKTS = 'DELETE_BRKTS';
 export const UPDATE_TOR_NAME = 'UPDATE_TOR_NAME';
 export const RESET_CREATE_STATE = 'RESET_CREATE_STATE';
+export const UPDATE_BRKT = 'UPDATE_BRKT';
