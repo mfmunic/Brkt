@@ -7,9 +7,12 @@ import setBrkts from './firebase/setBrkts';
 import { tArr, bArr, gArr } from './utils/titleWords.js';
 
 export function randomTorName() {
-  const tWord = tArr[_.random(0, tArr.length - 1)].toUpperCase();
-  const bWord = bArr[_.random(0, bArr.length - 1)].toUpperCase();
-  const gWord = gArr[_.random(0, gArr.length - 1)].toUpperCase();
+  let tWord = tArr[_.random(0, tArr.length - 1)];
+  tWord = tWord.charAt(0).toUpperCase() + tWord.slice(1);
+  let bWord = bArr[_.random(0, bArr.length - 1)];
+  bWord = bWord.charAt(0).toUpperCase() + bWord.slice(1);
+  let gWord = gArr[_.random(0, gArr.length - 1)];
+  gWord = gWord.charAt(0).toUpperCase() + gWord.slice(1);
   return {
     type: actionTypes.UPDATE_TOR_NAME,
     payload: `${tWord} ${bWord} ${gWord}`
