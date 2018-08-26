@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as Create from '../../modules/actions/createBracketPageActions';
 
-import CreateCancelButton from './create_cancel_button';
+import CancelButton from '../utils/cancel_button';
 import CreateCreateButton from './create_create_button';
 
 class CreateHeader extends Component {
@@ -35,7 +35,7 @@ class CreateHeader extends Component {
 
         <div id="createHeaderBtns">
           <CreateCreateButton />
-          <CreateCancelButton />
+          <CancelButton />
         </div>
       </div>
     );
