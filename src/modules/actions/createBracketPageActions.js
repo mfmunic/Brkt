@@ -32,11 +32,30 @@ export function resetState() {
   };
 }
 
-export function updateNoOfPlayers(noOfPlayers) {
+export function updateNoOfPlayers(noOfPlayers, playerNames) {
   const brktInfo = getBrktInfo(noOfPlayers);
+
+  playerNames = _.map(playerNames, (name, index) => {
+    if (name.includes('<<Player ') || name === '') {
+      name = `<<Player ${index + 1}>>`;
+    }
+    return name;
+  });
+
+  if (noOfPlayers < playerNames.length) {
+    const removePlayers = playerNames.length - noOfPlayers;
+    for (let i = 0; i < removePlayers; i++) {
+      playerNames.pop();
+    }
+  } else {
+    for (let i = playerNames.length; i < noOfPlayers; i++) {
+      playerNames.push(`<<Player ${i + 1}>>`);
+    }
+  }
+
   return {
     type: actionTypes.UPDATE_NOOFPLAYERS,
-    payload: { noOfPlayers, brktInfo }
+    payload: { noOfPlayers, brktInfo, playerNames }
   };
 }
 
@@ -88,8 +107,8 @@ export function switchInput(inputType, noOfPlayers, playerNames) {
 
 //firbase specific
 
-export function addBrkt(newBrkt, brktName) {
-  const brkt = { brktInfo: newBrkt, brktName };
+export function addBrkt(newBrkt, brktName, playerNames) {
+  const brkt = { brktInfo: newBrkt, brktName, playerNames };
   setBrkts(brkt);
   return {
     type: actionTypes.PUBLISHED_BRKT,

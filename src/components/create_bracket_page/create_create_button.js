@@ -3,12 +3,17 @@ import { connect } from 'react-redux';
 import * as Create from '../../modules/actions/createBracketPageActions';
 
 class CreateCreateButton extends Component {
-  createBracket(brktInfo, brktName, event) {
-    this.props.dispatch(Create.addBrkt(brktInfo, brktName));
+  createBracket(brktInfo, brktName, playerNames, event) {
+    this.props.dispatch(Create.addBrkt(brktInfo, brktName, playerNames));
   }
 
   render() {
-    const { brktInfo, brktName, noOfPlayers } = this.props.createBracket;
+    const {
+      brktInfo,
+      brktName,
+      noOfPlayers,
+      playerNames
+    } = this.props.createBracket;
 
     return (
       <div>
@@ -17,16 +22,16 @@ class CreateCreateButton extends Component {
             className="btn btn-primary"
             id="createBtn"
             type="submit"
-            onClick={this.createBracket.bind(this, brktInfo, brktName)}>
+            onClick={this.createBracket.bind(
+              this,
+              brktInfo,
+              brktName,
+              playerNames
+            )}>
             Create Bracket
           </button>
         ) : (
-          <button
-            className="btn btn-primary"
-            id="createBtn"
-            type="submit"
-            onClick={this.createBracket.bind(this, brktInfo, brktName)}
-            disabled>
+          <button className="btn btn-primary" id="createBtn" disabled>
             Create Bracket
           </button>
         )}

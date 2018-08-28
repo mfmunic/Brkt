@@ -10,12 +10,14 @@ class CreateSidebar extends Component {
     this.props.dispatch(Create.updateNoOfPlayers(0));
   }
 
-  updateNumber(event) {
+  updateNumber(playerNames, event) {
     const noCheck = +event.target.value;
     if (noCheck && noCheck <= 256) {
-      this.props.dispatch(Create.updateNoOfPlayers(event.target.value));
+      this.props.dispatch(
+        Create.updateNoOfPlayers(event.target.value, playerNames)
+      );
     } else {
-      this.props.dispatch(Create.updateNoOfPlayers(0));
+      this.props.dispatch(Create.updateNoOfPlayers(0, playerNames));
     }
   }
 
@@ -77,7 +79,7 @@ class CreateSidebar extends Component {
                 type="number"
                 min="2"
                 max="256"
-                onChange={this.updateNumber.bind(this)}
+                onChange={this.updateNumber.bind(this, playerNames)}
                 defaultValue={
                   playerNames.length === 0 ? '' : playerNames.length
                 }
