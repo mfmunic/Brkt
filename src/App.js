@@ -6,7 +6,6 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import './css/App.css';
 import CreateBracketPage from './components/create_bracket_page/create_bracket_page';
 import BrktAdmin from './components/admin_bracket_page/admin_bracket_page';
 import BrktUpdate from './components/update_bracket_page/update_bracket_page';
