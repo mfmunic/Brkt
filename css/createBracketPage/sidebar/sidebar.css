@@ -1,0 +1,59 @@
+.sidebar {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #c0c0c0;
+}
+
+#inputSel {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+}
+
+#playNames {
+  resize: none;
+  transition: 0.5s;
+}
+
+#title {
+  display: flex;
+  width: 262px;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+#torTitle {
+  color: #012551;
+  text-shadow: 0 0 1px #fff;
+}
+
+#braTitle {
+  margin-left: 1em;
+  color: #012551;
+  text-shadow: 0 0 1px #fff;
+}
+
+#genTitle {
+  margin-left: 2em;
+  color: #012551;
+  text-shadow: 0 0 1px #fff;
+}
+
+#inputNo input {
+  width: 75px;
+}
+
+.createIns {
+  display: flex;
+  align-items: center;
+}
+
+.createIns strong {
+  display: flex;
+  align-items: center;
+  margin-left: 3px;
+}
